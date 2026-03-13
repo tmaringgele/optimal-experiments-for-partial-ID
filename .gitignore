@@ -1,0 +1,5 @@
+context*
+.venv*
+.claude*
+.lower.log
+.upper.log
