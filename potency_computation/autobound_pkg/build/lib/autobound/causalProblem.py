@@ -143,10 +143,10 @@ def get_constraint_from_row(row_data, row_prob, program, cond = [ ], n = 0):
     and function returns constraints 
     """
     row_cond = cond.iloc[n] if len(cond) > 0  else []
-    query = [ f'{row_data.index[j]}={int(row_data[j])}'
+    query = [ f'{row_data.index[j]}={int(row_data.iloc[j])}'
                     for j,k in enumerate(list(row_data)) ]
     if len(row_cond) > 0:
-        query_cond = [ f'{row_cond.index[j]}={int(row_cond[j])}'
+        query_cond = [ f'{row_cond.index[j]}={int(row_cond.iloc[j])}'
                     for j,k in enumerate(list(row_cond)) ]
         return program.query('&'.join(query)) - Query(row_prob) * program.query('&'.join(query_cond))
     return   program.query('&'.join(query)) - Query(row_prob)
