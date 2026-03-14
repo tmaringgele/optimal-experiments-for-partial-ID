@@ -1,0 +1,321 @@
+graph,n_vars,p_conf,sim,n_confounders,query,n_R_theta,n_R_theta_star,n_experiments,n_useless,n_useful,fraction_pruned,id_pruned,blocked_pruned
+asia.bif,8,0.005,0,0,"Y={'xray'}, X={'either', 'bronc'}; Y={'smoke'}, X={'tub', 'either', 'lung', 'bronc'}",0,0,500,500,0,1.0,143,357
+asia.bif,8,0.005,1,0,"Y={'either'}, X={'lung', 'tub'}; Y={'bronc'}, X={'asia', 'smoke', 'dysp'}",0,0,500,500,0,1.0,171,329
+asia.bif,8,0.005,2,0,"Y={'dysp'}, X={'asia', 'bronc'}; Y={'lung'}, X={'either'}",0,0,500,500,0,1.0,139,361
+asia.bif,8,0.005,3,0,"Y={'either'}, X={'tub'}; Y={'bronc'}, X={'either', 'dysp', 'tub'}",0,0,500,500,0,1.0,153,347
+asia.bif,8,0.005,4,0,"Y={'dysp'}, X={'either'}; Y={'lung'}, X={'either', 'asia', 'dysp'}",0,0,500,500,0,1.0,147,353
+asia.bif,8,0.005,5,0,"Y={'dysp'}, X={'either'}; Y={'lung'}, X={'either', 'tub'}",0,0,500,500,0,1.0,140,360
+asia.bif,8,0.005,6,0,"Y={'smoke'}, X={'lung'}; Y={'tub'}, X={'either', 'lung'}",0,0,500,500,0,1.0,156,344
+asia.bif,8,0.005,7,0,"Y={'dysp'}, X={'either', 'bronc'}; Y={'dysp'}, X={'either', 'smoke', 'bronc'}",0,0,500,500,0,1.0,153,347
+asia.bif,8,0.005,8,0,"Y={'xray'}, X={'either', 'bronc'}; Y={'tub'}, X={'either'}",0,0,500,500,0,1.0,150,350
+asia.bif,8,0.005,9,0,"Y={'asia'}, X={'tub'}; Y={'lung'}, X={'xray', 'smoke'}",0,0,500,500,0,1.0,147,353
+asia.bif,8,0.015,0,1,"Y={'dysp'}, X={'lung', 'bronc'}; Y={'either'}, X={'tub', 'dysp', 'asia', 'lung'}",1,1,500,160,340,0.32,139,21
+asia.bif,8,0.015,1,0,"Y={'smoke'}, X={'xray', 'bronc'}; Y={'either'}, X={'dysp', 'tub', 'bronc'}",0,0,500,500,0,1.0,147,353
+asia.bif,8,0.015,2,0,"Y={'either'}, X={'lung', 'tub', 'bronc'}; Y={'lung'}, X={'smoke', 'asia'}",0,0,500,500,0,1.0,161,339
+asia.bif,8,0.015,3,2,"Y={'dysp'}, X={'either', 'asia', 'tub', 'lung'}; Y={'dysp'}, X={'either', 'asia'}",1,2,500,141,359,0.282,125,16
+asia.bif,8,0.015,4,0,"Y={'either'}, X={'asia', 'dysp', 'lung', 'bronc'}; Y={'xray'}, X={'either', 'bronc'}",0,0,500,500,0,1.0,168,332
+asia.bif,8,0.015,5,0,"Y={'dysp'}, X={'either', 'lung'}; Y={'lung'}, X={'either', 'smoke'}",0,0,500,500,0,1.0,160,340
+asia.bif,8,0.015,6,0,"Y={'dysp'}, X={'either', 'smoke', 'asia', 'bronc'}; Y={'either'}, X={'xray', 'tub', 'smoke'}",0,0,500,500,0,1.0,153,347
+asia.bif,8,0.015,7,0,"Y={'either'}, X={'xray', 'lung'}; Y={'dysp'}, X={'either', 'smoke'}",0,0,500,500,0,1.0,157,343
+asia.bif,8,0.015,8,1,"Y={'either'}, X={'xray', 'asia'}; Y={'tub'}, X={'either', 'smoke'}",1,1,500,175,325,0.35,153,22
+asia.bif,8,0.015,9,0,"Y={'xray'}, X={'either', 'bronc'}; Y={'tub'}, X={'either'}",0,0,500,500,0,1.0,161,339
+asia.bif,8,0.025,0,1,"Y={'dysp'}, X={'bronc'}; Y={'either'}, X={'dysp', 'tub', 'bronc'}",1,1,500,181,319,0.362,145,36
+asia.bif,8,0.025,1,2,"Y={'dysp'}, X={'either', 'lung'}; Y={'lung'}, X={'smoke'}",2,2,500,129,371,0.258,123,6
+asia.bif,8,0.025,2,0,"Y={'either'}, X={'lung'}; Y={'asia'}, X={'either', 'smoke', 'tub', 'bronc'}",0,0,500,500,0,1.0,139,361
+asia.bif,8,0.025,3,1,"Y={'either'}, X={'xray', 'tub'}; Y={'smoke'}, X={'bronc'}",1,1,500,169,331,0.338,147,22
+asia.bif,8,0.025,4,0,"Y={'bronc'}, X={'dysp'}; Y={'tub'}, X={'either', 'lung'}",0,0,500,500,0,1.0,132,368
+asia.bif,8,0.025,5,0,"Y={'either'}, X={'asia', 'lung'}; Y={'lung'}, X={'either'}",0,0,500,500,0,1.0,165,335
+asia.bif,8,0.025,6,0,"Y={'lung'}, X={'either'}; Y={'either'}, X={'dysp', 'tub'}",0,0,500,500,0,1.0,162,338
+asia.bif,8,0.025,7,1,"Y={'dysp'}, X={'either'}; Y={'xray'}, X={'either', 'smoke', 'bronc'}",0,0,500,500,0,1.0,125,375
+asia.bif,8,0.025,8,0,"Y={'smoke'}, X={'bronc'}; Y={'either'}, X={'smoke', 'tub'}",0,0,500,500,0,1.0,137,363
+asia.bif,8,0.025,9,2,"Y={'dysp'}, X={'either'}; Y={'bronc'}, X={'xray', 'smoke', 'tub'}",2,2,500,153,347,0.306,146,7
+asia.bif,8,0.035,0,2,"Y={'dysp'}, X={'either'}; Y={'smoke'}, X={'either', 'lung', 'bronc'}",2,2,500,143,357,0.286,126,17
+asia.bif,8,0.035,1,1,"Y={'tub'}, X={'asia', 'lung', 'bronc'}; Y={'lung'}, X={'either'}",1,1,500,171,329,0.342,150,21
+asia.bif,8,0.035,2,0,"Y={'lung'}, X={'either', 'smoke'}; Y={'lung'}, X={'either', 'xray'}",0,0,500,500,0,1.0,155,345
+asia.bif,8,0.035,3,0,"Y={'either'}, X={'xray', 'lung'}; Y={'tub'}, X={'either', 'asia', 'lung'}",0,0,500,500,0,1.0,151,349
+asia.bif,8,0.035,4,0,"Y={'xray'}, X={'either', 'asia'}; Y={'either'}, X={'lung'}",0,0,500,500,0,1.0,159,341
+asia.bif,8,0.035,5,1,"Y={'smoke'}, X={'dysp', 'bronc'}; Y={'smoke'}, X={'asia', 'lung'}",0,0,500,500,0,1.0,146,354
+asia.bif,8,0.035,6,3,"Y={'tub'}, X={'either', 'bronc'}; Y={'dysp'}, X={'either', 'xray', 'tub'}",3,3,500,131,369,0.262,129,2
+asia.bif,8,0.035,7,0,"Y={'dysp'}, X={'either'}; Y={'bronc'}, X={'smoke'}",0,0,500,500,0,1.0,171,329
+asia.bif,8,0.035,8,0,"Y={'dysp'}, X={'either', 'xray', 'asia', 'lung'}; Y={'dysp'}, X={'smoke', 'bronc'}",0,0,500,500,0,1.0,144,356
+asia.bif,8,0.035,9,0,"Y={'tub'}, X={'either', 'asia', 'lung'}; Y={'either'}, X={'dysp'}",0,0,500,500,0,1.0,145,355
+sachs.bif,11,0.005,0,0,"Y={'Erk'}, X={'PKA', 'PIP2'}; Y={'PKA'}, X={'Akt'}",0,0,500,500,0,1.0,139,361
+sachs.bif,11,0.005,1,0,"Y={'P38'}, X={'PKA'}; Y={'Mek'}, X={'PKC', 'PKA'}",0,0,500,500,0,1.0,144,356
+sachs.bif,11,0.005,2,0,"Y={'PKA'}, X={'Plcg', 'P38', 'Raf', 'Mek'}; Y={'Jnk'}, X={'PKC'}",0,0,500,500,0,1.0,161,339
+sachs.bif,11,0.005,3,0,"Y={'PKA'}, X={'Akt'}; Y={'Jnk'}, X={'Plcg', 'PIP3', 'PKA', 'PIP2'}",0,0,500,500,0,1.0,168,332
+sachs.bif,11,0.005,4,1,"Y={'Mek'}, X={'P38', 'PKA', 'Jnk'}; Y={'Akt'}, X={'Raf', 'PKA', 'Jnk'}",1,1,500,184,316,0.368,164,20
+sachs.bif,11,0.005,5,1,"Y={'Akt'}, X={'PKA'}; Y={'Erk'}, X={'PKC', 'Akt'}",1,1,500,222,278,0.444,162,60
+sachs.bif,11,0.005,6,0,"Y={'PIP3'}, X={'PKC', 'Plcg', 'Jnk'}; Y={'Plcg'}, X={'PIP3', 'Jnk'}",0,0,500,500,0,1.0,153,347
+sachs.bif,11,0.005,7,0,"Y={'PKA'}, X={'Akt', 'Raf'}; Y={'PKA'}, X={'Raf'}",0,0,500,500,0,1.0,153,347
+sachs.bif,11,0.005,8,0,"Y={'PKC'}, X={'Akt', 'Mek'}; Y={'PKC'}, X={'Raf'}",0,0,500,500,0,1.0,144,356
+sachs.bif,11,0.005,9,0,"Y={'PKC'}, X={'Plcg', 'Mek'}; Y={'Erk'}, X={'PKC', 'PIP3', 'PIP2', 'Mek'}",0,0,500,500,0,1.0,155,345
+sachs.bif,11,0.015,0,0,"Y={'Mek'}, X={'Raf'}; Y={'P38'}, X={'PKA'}",0,0,500,500,0,1.0,153,347
+sachs.bif,11,0.015,1,0,"Y={'PKA'}, X={'PKC'}; Y={'PKA'}, X={'Akt', 'Plcg', 'P38'}",0,0,500,500,0,1.0,173,327
+sachs.bif,11,0.015,2,0,"Y={'Raf'}, X={'Erk', 'Mek'}; Y={'PKA'}, X={'PKC'}",0,0,500,500,0,1.0,152,348
+sachs.bif,11,0.015,3,0,"Y={'PKA'}, X={'Akt'}; Y={'Jnk'}, X={'PIP3', 'PKA', 'PIP2'}",0,0,500,500,0,1.0,163,337
+sachs.bif,11,0.015,4,1,"Y={'P38'}, X={'PKC'}; Y={'PIP3'}, X={'PIP2'}",1,1,500,176,324,0.352,157,19
+sachs.bif,11,0.015,5,1,"Y={'P38'}, X={'PKC', 'Raf', 'Mek'}; Y={'Plcg'}, X={'PKC', 'PIP3', 'Erk'}",1,1,500,175,325,0.35,158,17
+sachs.bif,11,0.015,6,1,"Y={'PIP2'}, X={'Plcg'}; Y={'PKC'}, X={'Raf', 'P38', 'PKA'}",0,0,500,500,0,1.0,149,351
+sachs.bif,11,0.015,7,0,"Y={'Erk'}, X={'PKC', 'PKA'}; Y={'P38'}, X={'PKC', 'Raf', 'Mek'}",0,0,500,500,0,1.0,148,352
+sachs.bif,11,0.015,8,2,"Y={'Raf'}, X={'PKC', 'PIP2'}; Y={'PKC'}, X={'P38', 'Raf'}",2,2,500,132,368,0.264,130,2
+sachs.bif,11,0.015,9,1,"Y={'PKC'}, X={'P38', 'PKA'}; Y={'PKC'}, X={'PKA', 'Jnk'}",0,0,500,500,0,1.0,137,363
+sachs.bif,11,0.025,0,0,"Y={'Erk'}, X={'Akt', 'Raf', 'Mek'}; Y={'Akt'}, X={'Erk', 'Mek'}",0,0,500,500,0,1.0,162,338
+sachs.bif,11,0.025,1,1,"Y={'PKC'}, X={'PKA', 'Mek'}; Y={'Raf'}, X={'PKC'}",0,0,500,500,0,1.0,125,375
+sachs.bif,11,0.025,2,1,"Y={'PKC'}, X={'Mek', 'Jnk'}; Y={'Raf'}, X={'PIP3', 'Mek'}",1,1,500,170,330,0.34,149,21
+sachs.bif,11,0.025,3,1,"Y={'Jnk'}, X={'PKA'}; Y={'PKC'}, X={'Akt', 'Erk', 'Raf', 'Mek'}",0,0,500,500,0,1.0,134,366
+sachs.bif,11,0.025,4,2,"Y={'Erk'}, X={'Mek'}; Y={'PKA'}, X={'Raf'}",1,1,500,178,322,0.356,155,23
+sachs.bif,11,0.025,5,1,"Y={'PKA'}, X={'P38', 'Erk', 'PIP2'}; Y={'PKC'}, X={'P38'}",1,1,500,159,341,0.318,135,24
+sachs.bif,11,0.025,6,2,"Y={'P38'}, X={'PKA'}; Y={'Raf'}, X={'PKC', 'Plcg', 'Akt', 'P38'}",2,2,500,124,376,0.248,123,1
+sachs.bif,11,0.025,7,0,"Y={'PKA'}, X={'Plcg', 'Erk'}; Y={'Raf'}, X={'PKC', 'PIP3'}",0,0,500,500,0,1.0,146,354
+sachs.bif,11,0.025,8,1,"Y={'Mek'}, X={'Erk', 'PIP2'}; Y={'PIP2'}, X={'PIP3'}",1,1,500,156,344,0.312,128,28
+sachs.bif,11,0.025,9,1,"Y={'PKC'}, X={'P38', 'PIP3', 'Mek', 'Jnk'}; Y={'Erk'}, X={'Akt', 'Raf', 'Mek'}",0,0,500,500,0,1.0,135,365
+sachs.bif,11,0.035,0,0,"Y={'Akt'}, X={'Erk'}; Y={'Mek'}, X={'P38', 'Erk'}",0,0,500,500,0,1.0,153,347
+sachs.bif,11,0.035,1,1,"Y={'PKC'}, X={'Erk', 'Mek'}; Y={'PKA'}, X={'PKC', 'PIP3', 'Erk'}",0,0,500,500,0,1.0,148,352
+sachs.bif,11,0.035,2,2,"Y={'PKA'}, X={'Raf', 'Mek'}; Y={'P38'}, X={'PKC', 'Jnk'}",1,1,500,185,315,0.37,133,52
+sachs.bif,11,0.035,3,1,"Y={'PKC'}, X={'Plcg', 'Akt', 'PIP3', 'Raf', 'PKA'}; Y={'PKC'}, X={'Raf'}",0,0,500,500,0,1.0,126,374
+sachs.bif,11,0.035,4,0,"Y={'Jnk'}, X={'PKC', 'Plcg'}; Y={'PKC'}, X={'PIP3', 'Mek', 'Jnk'}",0,0,500,500,0,1.0,164,336
+sachs.bif,11,0.035,5,3,"Y={'Jnk'}, X={'Plcg', 'PKA', 'PIP2'}; Y={'PKA'}, X={'Mek'}",1,1,500,172,328,0.344,149,23
+sachs.bif,11,0.035,6,5,"Y={'PIP3'}, X={'Plcg', 'Akt', 'PIP2'}; Y={'Erk'}, X={'Akt', 'Jnk'}",4,5,500,116,384,0.232,116,0
+sachs.bif,11,0.035,7,3,"Y={'Raf'}, X={'Mek'}; Y={'PKA'}, X={'PKC', 'Akt'}",1,1,500,193,307,0.386,174,19
+sachs.bif,11,0.035,8,1,"Y={'PKA'}, X={'Erk'}; Y={'PKA'}, X={'P38', 'Erk'}",0,0,500,500,0,1.0,160,340
+sachs.bif,11,0.035,9,2,"Y={'Mek'}, X={'P38', 'PKA'}; Y={'PKA'}, X={'Raf'}",0,0,500,500,0,1.0,148,352
+alarm.bif,37,0.005,0,1,"Y={'SHUNT'}, X={'PULMEMBOLUS', 'INTUBATION', 'CO'}; Y={'SHUNT'}, X={'INTUBATION', 'LVEDVOLUME'}",0,0,500,500,0,1.0,170,330
+alarm.bif,37,0.005,1,5,"Y={'VENTALV'}, X={'VENTMACH', 'INTUBATION', 'ERRCAUTER'}; Y={'VENTTUBE'}, X={'DISCONNECT'}",2,3,500,186,314,0.372,155,31
+alarm.bif,37,0.005,2,3,"Y={'STROKEVOLUME'}, X={'HYPOVOLEMIA'}; Y={'SAO2'}, X={'PVSAT'}",0,0,500,500,0,1.0,167,333
+alarm.bif,37,0.005,3,2,"Y={'VENTALV'}, X={'PVSAT'}; Y={'MINVOL'}, X={'PVSAT', 'INTUBATION', 'DISCONNECT'}",2,2,500,172,328,0.344,157,15
+alarm.bif,37,0.005,4,4,"Y={'VENTALV'}, X={'EXPCO2', 'PVSAT', 'CO'}; Y={'VENTTUBE'}, X={'VENTLUNG'}",2,3,500,176,324,0.352,167,9
+alarm.bif,37,0.005,5,4,"Y={'HYPOVOLEMIA'}, X={'STROKEVOLUME'}; Y={'LVFAILURE'}, X={'STROKEVOLUME', 'VENTLUNG'}",2,3,500,182,318,0.364,144,38
+alarm.bif,37,0.005,6,1,"Y={'ANAPHYLAXIS'}, X={'TPR'}; Y={'HR'}, X={'HRSAT', 'ERRLOWOUTPUT', 'INTUBATION'}",0,0,500,500,0,1.0,164,336
+alarm.bif,37,0.005,7,1,"Y={'HR'}, X={'HRBP', 'VENTLUNG'}; Y={'MINVOL'}, X={'VENTLUNG'}",1,1,500,204,296,0.408,176,28
+alarm.bif,37,0.005,8,4,"Y={'VENTTUBE'}, X={'VENTLUNG'}; Y={'INTUBATION'}, X={'PRESS'}",1,1,500,175,325,0.35,147,28
+alarm.bif,37,0.005,9,3,"Y={'PCWP'}, X={'MINVOL', 'LVEDVOLUME'}; Y={'BP'}, X={'HISTORY', 'CO', 'LVEDVOLUME'}",1,1,500,179,321,0.358,145,34
+alarm.bif,37,0.015,0,11,"Y={'MINVOL'}, X={'VENTTUBE', 'VENTLUNG'}; Y={'BP'}, X={'TPR'}",9,10,500,149,351,0.298,145,4
+alarm.bif,37,0.015,1,10,"Y={'VENTALV'}, X={'INTUBATION'}; Y={'PAP'}, X={'PULMEMBOLUS'}",2,2,500,193,307,0.386,168,25
+alarm.bif,37,0.015,2,9,"Y={'HRSAT'}, X={'HR', 'HREKG'}; Y={'INTUBATION'}, X={'FIO2', 'SHUNT'}",1,1,500,189,311,0.378,156,33
+alarm.bif,37,0.015,3,7,"Y={'SHUNT'}, X={'INTUBATION'}; Y={'VENTTUBE'}, X={'VENTLUNG'}",2,3,500,184,316,0.368,148,36
+alarm.bif,37,0.015,4,12,"Y={'PULMEMBOLUS'}, X={'VENTALV', 'PAP', 'DISCONNECT'}; Y={'VENTLUNG'}, X={'KINKEDTUBE', 'CO'}",3,6,500,156,344,0.312,152,4
+alarm.bif,37,0.015,5,11,"Y={'ARTCO2'}, X={'CATECHOL', 'VENTTUBE'}; Y={'VENTLUNG'}, X={'KINKEDTUBE', 'EXPCO2', 'PCWP', 'INSUFFANESTH'}",5,5,500,173,327,0.346,161,12
+alarm.bif,37,0.015,6,15,"Y={'HR'}, X={'CO', 'DISCONNECT'}; Y={'CO'}, X={'BP'}",12,15,500,157,343,0.314,156,1
+alarm.bif,37,0.015,7,10,"Y={'SAO2'}, X={'HRBP', 'INTUBATION', 'PVSAT'}; Y={'PRESS'}, X={'KINKEDTUBE', 'HYPOVOLEMIA'}",4,7,500,151,349,0.302,140,11
+alarm.bif,37,0.015,8,10,"Y={'INTUBATION'}, X={'PRESS'}; Y={'FIO2'}, X={'EXPCO2', 'PVSAT'}",2,5,500,162,338,0.324,160,2
+alarm.bif,37,0.015,9,6,"Y={'MINVOL'}, X={'FIO2', 'MINVOLSET', 'VENTLUNG'}; Y={'SHUNT'}, X={'HR', 'SAO2'}",1,2,500,195,305,0.39,141,54
+alarm.bif,37,0.025,0,17,"Y={'HR'}, X={'HREKG'}; Y={'HR'}, X={'LVFAILURE', 'HREKG'}",13,16,500,139,361,0.278,139,0
+alarm.bif,37,0.025,1,22,"Y={'CO'}, X={'HR', 'TPR'}; Y={'VENTALV'}, X={'PVSAT'}",11,22,500,145,355,0.29,144,1
+alarm.bif,37,0.025,2,13,"Y={'MINVOLSET'}, X={'KINKEDTUBE', 'VENTMACH', 'VENTALV'}; Y={'INTUBATION'}, X={'ERRLOWOUTPUT', 'VENTLUNG'}",2,2,500,188,312,0.376,168,20
+alarm.bif,37,0.025,3,13,"Y={'INTUBATION'}, X={'SHUNT', 'MINVOLSET', 'PAP'}; Y={'VENTTUBE'}, X={'PRESS'}",4,11,500,159,341,0.318,157,2
+alarm.bif,37,0.025,4,20,"Y={'VENTALV'}, X={'FIO2', 'ARTCO2'}; Y={'ERRLOWOUTPUT'}, X={'ARTCO2', 'HRBP'}",12,18,500,161,339,0.322,161,0
+alarm.bif,37,0.025,5,16,"Y={'VENTLUNG'}, X={'ERRLOWOUTPUT', 'VENTALV'}; Y={'SAO2'}, X={'PVSAT'}",7,11,500,153,347,0.306,150,3
+alarm.bif,37,0.025,6,20,"Y={'SHUNT'}, X={'INTUBATION'}; Y={'PVSAT'}, X={'VENTMACH', 'ERRLOWOUTPUT', 'VENTALV'}",2,3,500,173,327,0.346,147,26
+alarm.bif,37,0.025,7,17,"Y={'ERRCAUTER'}, X={'HRSAT'}; Y={'MINVOLSET'}, X={'VENTMACH', 'INTUBATION'}",3,8,500,135,365,0.27,125,10
+alarm.bif,37,0.025,8,10,"Y={'DISCONNECT'}, X={'MINVOLSET', 'VENTTUBE'}; Y={'VENTALV'}, X={'PVSAT', 'VENTLUNG'}",3,5,500,150,350,0.3,146,4
+alarm.bif,37,0.025,9,17,"Y={'VENTALV'}, X={'CATECHOL', 'PAP', 'VENTLUNG'}; Y={'LVEDVOLUME'}, X={'HYPOVOLEMIA', 'KINKEDTUBE', 'FIO2'}",3,9,500,149,351,0.298,143,6
+alarm.bif,37,0.035,0,28,"Y={'HRSAT'}, X={'EXPCO2', 'HR', 'CATECHOL'}; Y={'VENTTUBE'}, X={'VENTMACH', 'TPR'}",5,27,500,132,368,0.264,132,0
+alarm.bif,37,0.035,1,23,"Y={'VENTMACH'}, X={'HRSAT', 'FIO2', 'MINVOLSET'}; Y={'CATECHOL'}, X={'INSUFFANESTH'}",18,22,500,144,356,0.288,144,0
+alarm.bif,37,0.035,2,23,"Y={'BP'}, X={'TPR'}; Y={'SHUNT'}, X={'EXPCO2', 'MINVOLSET', 'INTUBATION', 'DISCONNECT'}",16,23,500,155,345,0.31,155,0
+alarm.bif,37,0.035,3,26,"Y={'VENTALV'}, X={'PVSAT'}; Y={'PULMEMBOLUS'}, X={'VENTMACH', 'PAP', 'MINVOL'}",9,21,500,135,365,0.27,134,1
+alarm.bif,37,0.035,4,21,"Y={'SAO2'}, X={'SHUNT', 'MINVOL'}; Y={'INTUBATION'}, X={'HRSAT', 'MINVOL'}",10,15,500,164,336,0.328,159,5
+alarm.bif,37,0.035,5,15,"Y={'TPR'}, X={'CATECHOL', 'VENTMACH'}; Y={'MINVOLSET'}, X={'VENTMACH', 'VENTTUBE', 'VENTLUNG'}",3,8,500,154,346,0.308,146,8
+alarm.bif,37,0.035,6,29,"Y={'STROKEVOLUME'}, X={'HYPOVOLEMIA'}; Y={'HISTORY'}, X={'LVFAILURE'}",3,25,500,89,411,0.178,85,4
+alarm.bif,37,0.035,7,25,"Y={'TPR'}, X={'CATECHOL', 'ERRCAUTER'}; Y={'SAO2'}, X={'HYPOVOLEMIA', 'HISTORY', 'PVSAT'}",4,23,500,165,335,0.33,165,0
+alarm.bif,37,0.035,8,22,"Y={'CO'}, X={'BP'}; Y={'KINKEDTUBE'}, X={'FIO2', 'PRESS'}",21,22,500,119,381,0.238,119,0
+alarm.bif,37,0.035,9,19,"Y={'MINVOL'}, X={'INTUBATION'}; Y={'CO'}, X={'FIO2', 'HISTORY', 'STROKEVOLUME', 'HREKG'}",12,18,500,137,363,0.274,136,1
+barley.bif,48,0.005,0,6,"Y={'nmin'}, X={'jordtype', 'bgbyg'}; Y={'potnmin'}, X={'forfrugt', 'aar_mod', 'sorttkv'}",0,0,500,500,0,1.0,160,340
+barley.bif,48,0.005,1,5,"Y={'ksort'}, X={'keraks', 'mod_nmin', 'ngtilg', 'nopt'}; Y={'protein'}, X={'ksort', 'aks_vgt', 'dgv1059'}",4,4,500,150,350,0.3,141,9
+barley.bif,48,0.005,2,2,"Y={'jordinf'}, X={'saamng', 'markgrm', 'spndx'}; Y={'jordinf'}, X={'slt22', 'frspdag'}",0,0,500,500,0,1.0,166,334
+barley.bif,48,0.005,3,9,"Y={'potnmin'}, X={'dg25', 'jordtype', 'sort', 'ksort'}; Y={'komm'}, X={'saamng', 'protein', 'aar_mod', 'spndx'}",1,1,500,164,336,0.328,151,13
+barley.bif,48,0.005,4,10,"Y={'ngodnn'}, X={'pesticid', 'nopt'}; Y={'pesticid'}, X={'nprot', 'nopt'}",3,8,500,174,326,0.348,171,3
+barley.bif,48,0.005,5,3,"Y={'saatid'}, X={'dg25', 'slt22'}; Y={'dgv1059'}, X={'saamng', 'aks_m2', 'exptgens'}",2,2,500,166,334,0.332,154,12
+barley.bif,48,0.005,6,2,"Y={'ngodnn'}, X={'ngodn', 'jordn'}; Y={'sorttkv'}, X={'tkv'}",2,2,500,165,335,0.33,160,5
+barley.bif,48,0.005,7,5,"Y={'dgv1059'}, X={'protein', 'jordinf'}; Y={'ntilg'}, X={'ngtilg'}",3,3,500,180,320,0.36,171,9
+barley.bif,48,0.005,8,6,"Y={'ngtilg'}, X={'ngodn', 'saatid', 'nplac'}; Y={'markgrm'}, X={'saamng', 'aar_mod', 'partigerm'}",0,0,500,500,0,1.0,149,351
+barley.bif,48,0.005,9,2,"Y={'s2528'}, X={'srtsize'}; Y={'potnmin'}, X={'forfrugt', 'jordtype'}",2,2,500,163,337,0.326,148,15
+barley.bif,48,0.015,0,16,"Y={'jordinf'}, X={'markgrm', 'antplnt'}; Y={'jordn'}, X={'saamng', 'nmin', 'nprot', 'dgv1059'}",6,10,500,141,359,0.282,135,6
+barley.bif,48,0.015,1,18,"Y={'spndx'}, X={'nprot', 'ntilg'}; Y={'aks_vgt'}, X={'slt22', 'nopt'}",16,18,500,172,328,0.344,171,1
+barley.bif,48,0.015,2,11,"Y={'s2528'}, X={'srtsize'}; Y={'ngodn'}, X={'ngtilg'}",9,9,500,147,353,0.294,145,2
+barley.bif,48,0.015,3,19,"Y={'keraks'}, X={'s2528', 'ksort'}; Y={'saamng'}, X={'saakern', 'sorttkv'}",17,18,500,123,377,0.246,121,2
+barley.bif,48,0.015,4,12,"Y={'keraks'}, X={'jordn', 'ngodnt', 'ntilg'}; Y={'partigerm'}, X={'markgrm', 'saakern'}",9,10,500,150,350,0.3,146,4
+barley.bif,48,0.015,5,17,"Y={'keraks'}, X={'ksort', 'tkvs'}; Y={'s2225'}, X={'keraks', 'aar_mod', 'partigerm'}",16,17,500,135,365,0.27,134,1
+barley.bif,48,0.015,6,15,"Y={'ntilg'}, X={'ngtilg', 'frspdag'}; Y={'potnmin'}, X={'forfrugt'}",5,7,500,127,373,0.254,120,7
+barley.bif,48,0.015,7,24,"Y={'bgbyg'}, X={'pesticid', 'dgv5980', 'nplac'}; Y={'ksort'}, X={'exptgens', 'jordn', 'aks_vgt'}",22,24,500,147,353,0.294,147,0
+barley.bif,48,0.015,8,16,"Y={'jordtype'}, X={'exptgens'}; Y={'dgv1059'}, X={'keraks', 'nmin', 'bgbyg', 'srtsize'}",1,2,500,154,346,0.308,133,21
+barley.bif,48,0.015,9,20,"Y={'s2225'}, X={'keraks', 'ngodnt', 'nplac'}; Y={'keraks'}, X={'jordtype', 'dgv1059'}",19,19,500,148,352,0.296,146,2
+barley.bif,48,0.025,0,37,"Y={'sorttkv'}, X={'aks_m2', 'sort', 'ksort'}; Y={'aks_m2'}, X={'protein', 'sort', 'dgv1059'}",33,36,500,115,385,0.23,115,0
+barley.bif,48,0.025,1,27,"Y={'exptgens'}, X={'nopt'}; Y={'aks_m2'}, X={'udb'}",24,27,500,145,355,0.29,145,0
+barley.bif,48,0.025,2,28,"Y={'potnmin'}, X={'jordn'}; Y={'protein'}, X={'udb', 'ksort'}",20,28,500,135,365,0.27,135,0
+barley.bif,48,0.025,3,21,"Y={'srtsize'}, X={'s2225', 'nprot', 'keraks'}; Y={'sorttkv'}, X={'tkv'}",3,9,500,158,342,0.316,155,3
+barley.bif,48,0.025,4,32,"Y={'antplnt'}, X={'markgrm', 'jordinf', 'rokap'}; Y={'ntilg'}, X={'tkv'}",22,27,500,134,366,0.268,134,0
+barley.bif,48,0.025,5,32,"Y={'keraks'}, X={'tkv'}; Y={'ngodnt'}, X={'exptgens', 'tkvs'}",29,32,500,108,392,0.216,107,1
+barley.bif,48,0.025,6,30,"Y={'dgv1059'}, X={'bgbyg'}; Y={'ngtilg'}, X={'dg25', 'komm'}",22,27,500,106,394,0.212,106,0
+barley.bif,48,0.025,7,25,"Y={'ngodnt'}, X={'mod_nmin', 'rokap', 'dgv1059'}; Y={'aks_m2'}, X={'udb', 'nmin', 'potnmin'}",22,24,500,130,370,0.26,130,0
+barley.bif,48,0.025,8,45,"Y={'aks_vgt'}, X={'udb', 'nprot', 'partigerm', 'spndx'}; Y={'ntilg'}, X={'aks_vgt'}",43,45,500,99,401,0.198,99,0
+barley.bif,48,0.025,9,23,"Y={'exptgens'}, X={'aks_m2', 'pesticid', 'potnmin'}; Y={'protein'}, X={'nmin', 'ksort'}",16,19,500,141,359,0.282,140,1
+barley.bif,48,0.035,0,52,"Y={'jordn'}, X={'ngodnt', 'srtprot', 'potnmin'}; Y={'komm'}, X={'slt22', 'partigerm', 'nedbarea'}",13,52,500,93,407,0.186,93,0
+barley.bif,48,0.035,1,34,"Y={'aks_vgt'}, X={'dgv5980'}; Y={'ntilg'}, X={'spndx'}",31,34,500,114,386,0.228,114,0
+barley.bif,48,0.035,2,42,"Y={'ngodn'}, X={'ngtilg'}; Y={'exptgens'}, X={'forfrugt', 'aks_m2'}",24,40,500,97,403,0.194,96,1
+barley.bif,48,0.035,3,49,"Y={'forfrugt'}, X={'ngodnt'}; Y={'sorttkv'}, X={'exptgens', 'aks_m2'}",3,49,500,115,385,0.23,115,0
+barley.bif,48,0.035,4,40,"Y={'forfrugt'}, X={'potnmin'}; Y={'protein'}, X={'nprot'}",39,40,500,87,413,0.174,87,0
+barley.bif,48,0.035,5,42,"Y={'jordn'}, X={'sorttkv', 'ngodnn'}; Y={'aks_m2'}, X={'keraks', 'saatid'}",39,42,500,114,386,0.228,114,0
+barley.bif,48,0.035,6,45,"Y={'rokap'}, X={'ngodn', 'ngodnn', 'dgv5980'}; Y={'sorttkv'}, X={'tkv'}",5,45,500,98,402,0.196,98,0
+barley.bif,48,0.035,7,38,"Y={'saatid'}, X={'dgv1059'}; Y={'spndx'}, X={'saatid', 'ntilg', 'komm'}",27,37,500,96,404,0.192,96,0
+barley.bif,48,0.035,8,35,"Y={'tkv'}, X={'s2528', 'ntilg', 'dgv1059', 'dgv5980'}; Y={'nedbarea'}, X={'komm', 'ngodn'}",20,33,500,141,359,0.282,141,0
+barley.bif,48,0.035,9,34,"Y={'aks_vgt'}, X={'ksort'}; Y={'forfrugt'}, X={'saakern', 'potnmin', 'spndx'}",30,34,500,118,382,0.236,118,0
+child.bif,20,0.005,0,0,"Y={'Grunting'}, X={'Sick'}; Y={'LungFlow'}, X={'DuctFlow', 'ChestXray', 'HypDistrib', 'LungParench'}",0,0,500,500,0,1.0,167,333
+child.bif,20,0.005,1,1,"Y={'Age'}, X={'Sick', 'LowerBodyO2', 'CO2'}; Y={'Disease'}, X={'LungFlow'}",1,1,500,177,323,0.354,155,22
+child.bif,20,0.005,2,0,"Y={'LungFlow'}, X={'Disease', 'ChestXray', 'CO2Report'}; Y={'LVHreport'}, X={'RUQO2', 'LVH'}",0,0,500,500,0,1.0,153,347
+child.bif,20,0.005,3,1,"Y={'GruntingReport'}, X={'Grunting'}; Y={'Sick'}, X={'BirthAsphyxia', 'Disease'}",0,0,500,500,0,1.0,172,328
+child.bif,20,0.005,4,2,"Y={'Age'}, X={'Disease', 'ChestXray'}; Y={'HypoxiaInO2'}, X={'LungParench'}",1,1,500,213,287,0.426,153,60
+child.bif,20,0.005,5,1,"Y={'LVH'}, X={'LVHreport', 'RUQO2'}; Y={'Grunting'}, X={'Sick', 'ChestXray'}",0,0,500,500,0,1.0,150,350
+child.bif,20,0.005,6,2,"Y={'HypoxiaInO2'}, X={'XrayReport', 'RUQO2', 'LowerBodyO2'}; Y={'GruntingReport'}, X={'Grunting'}",0,0,500,500,0,1.0,161,339
+child.bif,20,0.005,7,0,"Y={'LungFlow'}, X={'DuctFlow', 'ChestXray'}; Y={'LVH'}, X={'LVHreport', 'HypDistrib'}",0,0,500,500,0,1.0,158,342
+child.bif,20,0.005,8,0,"Y={'LungFlow'}, X={'XrayReport', 'Disease'}; Y={'LVH'}, X={'LVHreport', 'XrayReport'}",0,0,500,500,0,1.0,166,334
+child.bif,20,0.005,9,0,"Y={'HypoxiaInO2'}, X={'GruntingReport', 'CO2Report', 'LungParench'}; Y={'CO2Report'}, X={'CO2', 'LungParench'}",0,0,500,500,0,1.0,139,361
+child.bif,20,0.015,0,0,"Y={'LowerBodyO2'}, X={'HypDistrib', 'LungParench'}; Y={'Disease'}, X={'BirthAsphyxia', 'LowerBodyO2', 'LungFlow'}",0,0,500,500,0,1.0,159,341
+child.bif,20,0.015,1,4,"Y={'Grunting'}, X={'HypoxiaInO2', 'Age', 'LungFlow', 'LungParench'}; Y={'ChestXray'}, X={'XrayReport', 'HypoxiaInO2'}",3,4,500,181,319,0.362,167,14
+child.bif,20,0.015,2,5,"Y={'HypoxiaInO2'}, X={'CardiacMixing'}; Y={'Disease'}, X={'DuctFlow', 'LVH'}",2,2,500,163,337,0.326,157,6
+child.bif,20,0.015,3,4,"Y={'LVHreport'}, X={'ChestXray', 'RUQO2', 'LVH'}; Y={'LVHreport'}, X={'LVH'}",1,2,500,202,298,0.404,164,38
+child.bif,20,0.015,4,3,"Y={'LungParench'}, X={'CardiacMixing', 'DuctFlow', 'ChestXray', 'LowerBodyO2'}; Y={'Grunting'}, X={'GruntingReport'}",1,1,500,168,332,0.336,150,18
+child.bif,20,0.015,5,1,"Y={'Disease'}, X={'DuctFlow'}; Y={'CardiacMixing'}, X={'HypDistrib', 'DuctFlow', 'CO2Report'}",1,1,500,204,296,0.408,147,57
+child.bif,20,0.015,6,4,"Y={'Disease'}, X={'BirthAsphyxia', 'DuctFlow'}; Y={'LowerBodyO2'}, X={'HypoxiaInO2'}",4,4,500,129,371,0.258,127,2
+child.bif,20,0.015,7,3,"Y={'LVH'}, X={'Disease'}; Y={'Disease'}, X={'DuctFlow', 'LVH'}",1,2,500,196,304,0.392,160,36
+child.bif,20,0.015,8,6,"Y={'Age'}, X={'Disease', 'CO2'}; Y={'Disease'}, X={'LowerBodyO2', 'LungFlow'}",4,5,500,164,336,0.328,163,1
+child.bif,20,0.015,9,3,"Y={'Disease'}, X={'Age', 'CO2'}; Y={'LVH'}, X={'LVHreport', 'CO2Report'}",0,0,500,500,0,1.0,148,352
+child.bif,20,0.025,0,3,"Y={'LungFlow'}, X={'Sick', 'Disease'}; Y={'Disease'}, X={'LungParench'}",0,0,500,500,0,1.0,136,364
+child.bif,20,0.025,1,3,"Y={'LungParench'}, X={'ChestXray'}; Y={'Disease'}, X={'Sick'}",0,0,500,500,0,1.0,153,347
+child.bif,20,0.025,2,5,"Y={'DuctFlow'}, X={'GruntingReport', 'Disease'}; Y={'LVHreport'}, X={'CardiacMixing', 'LVH'}",1,1,500,230,270,0.46,131,99
+child.bif,20,0.025,3,7,"Y={'LowerBodyO2'}, X={'XrayReport', 'HypoxiaInO2'}; Y={'HypDistrib'}, X={'DuctFlow'}",4,6,500,173,327,0.346,171,2
+child.bif,20,0.025,4,4,"Y={'RUQO2'}, X={'HypoxiaInO2'}; Y={'Grunting'}, X={'GruntingReport', 'RUQO2', 'HypDistrib'}",2,2,500,181,319,0.362,143,38
+child.bif,20,0.025,5,10,"Y={'Disease'}, X={'BirthAsphyxia'}; Y={'CardiacMixing'}, X={'XrayReport', 'HypDistrib', 'LungFlow'}",2,10,500,116,384,0.232,116,0
+child.bif,20,0.025,6,5,"Y={'Sick'}, X={'Disease', 'HypDistrib'}; Y={'RUQO2'}, X={'HypoxiaInO2', 'Age'}",2,3,500,157,343,0.314,135,22
+child.bif,20,0.025,7,3,"Y={'Disease'}, X={'BirthAsphyxia', 'Age', 'CO2Report'}; Y={'DuctFlow'}, X={'LVHreport', 'CardiacMixing', 'Disease'}",1,1,500,157,343,0.314,148,9
+child.bif,20,0.025,8,5,"Y={'CO2'}, X={'LungFlow', 'CO2Report'}; Y={'BirthAsphyxia'}, X={'HypoxiaInO2', 'RUQO2', 'Disease'}",3,3,500,118,382,0.236,113,5
+child.bif,20,0.025,9,5,"Y={'Age'}, X={'Sick'}; Y={'CO2'}, X={'CO2Report'}",2,4,500,160,340,0.32,149,11
+child.bif,20,0.035,0,7,"Y={'LungParench'}, X={'ChestXray'}; Y={'ChestXray'}, X={'LVHreport', 'LVH', 'LungParench'}",2,5,500,150,350,0.3,147,3
+child.bif,20,0.035,1,9,"Y={'LungParench'}, X={'CO2'}; Y={'ChestXray'}, X={'LungParench'}",5,9,500,103,397,0.206,101,2
+child.bif,20,0.035,2,6,"Y={'Grunting'}, X={'GruntingReport'}; Y={'LungParench'}, X={'HypoxiaInO2', 'CO2'}",5,5,500,138,362,0.276,137,1
+child.bif,20,0.035,3,5,"Y={'Disease'}, X={'Sick', 'LVH'}; Y={'XrayReport'}, X={'ChestXray'}",0,0,500,500,0,1.0,140,360
+child.bif,20,0.035,4,2,"Y={'Disease'}, X={'DuctFlow'}; Y={'Disease'}, X={'LVH', 'LowerBodyO2'}",0,0,500,500,0,1.0,155,345
+child.bif,20,0.035,5,7,"Y={'LungParench'}, X={'GruntingReport', 'ChestXray'}; Y={'Sick'}, X={'Grunting'}",1,5,500,151,349,0.302,149,2
+child.bif,20,0.035,6,3,"Y={'HypoxiaInO2'}, X={'CardiacMixing'}; Y={'Sick'}, X={'Age'}",2,2,500,189,311,0.378,173,16
+child.bif,20,0.035,7,6,"Y={'HypDistrib'}, X={'XrayReport', 'CardiacMixing'}; Y={'ChestXray'}, X={'XrayReport'}",3,3,500,164,336,0.328,143,21
+child.bif,20,0.035,8,6,"Y={'ChestXray'}, X={'CardiacMixing', 'LowerBodyO2', 'LungFlow'}; Y={'Disease'}, X={'DuctFlow'}",3,4,500,163,337,0.326,162,1
+child.bif,20,0.035,9,2,"Y={'Disease'}, X={'LVH'}; Y={'HypoxiaInO2'}, X={'CardiacMixing', 'RUQO2', 'LungParench'}",0,0,500,500,0,1.0,154,346
+insurance.bif,27,0.005,0,0,"Y={'HomeBase'}, X={'SocioEcon'}; Y={'Accident'}, X={'Antilock', 'DrivHist', 'SeniorTrain'}",0,0,500,500,0,1.0,172,328
+insurance.bif,27,0.005,1,3,"Y={'DrivingSkill'}, X={'SocioEcon', 'SeniorTrain'}; Y={'MakeModel'}, X={'SocioEcon'}",1,1,500,161,339,0.322,142,19
+insurance.bif,27,0.005,2,1,"Y={'DrivHist'}, X={'DrivingSkill', 'OtherCarCost'}; Y={'Age'}, X={'DrivingSkill'}",1,1,500,169,331,0.338,161,8
+insurance.bif,27,0.005,3,2,"Y={'RiskAversion'}, X={'Mileage', 'SeniorTrain', 'MedCost'}; Y={'RiskAversion'}, X={'MakeModel', 'OtherCar'}",1,1,500,167,333,0.334,156,11
+insurance.bif,27,0.005,4,4,"Y={'Theft'}, X={'HomeBase'}; Y={'ThisCarCost'}, X={'CarValue', 'Cushioning', 'MedCost'}",4,4,500,138,362,0.276,137,1
+insurance.bif,27,0.005,5,2,"Y={'RuggedAuto'}, X={'ThisCarDam'}; Y={'SocioEcon'}, X={'ThisCarDam', 'DrivQuality', 'MakeModel'}",1,1,500,180,320,0.36,157,23
+insurance.bif,27,0.005,6,2,"Y={'Age'}, X={'RiskAversion'}; Y={'HomeBase'}, X={'SocioEcon'}",2,2,500,153,347,0.306,152,1
+insurance.bif,27,0.005,7,3,"Y={'RiskAversion'}, X={'MakeModel'}; Y={'SeniorTrain'}, X={'Age', 'RuggedAuto', 'DrivingSkill', 'ILiCost'}",1,1,500,168,332,0.336,160,8
+insurance.bif,27,0.005,8,2,"Y={'RiskAversion'}, X={'SeniorTrain', 'MedCost'}; Y={'Accident'}, X={'Antilock', 'GoodStudent'}",1,1,500,135,365,0.27,134,1
+insurance.bif,27,0.005,9,2,"Y={'RiskAversion'}, X={'MakeModel'}; Y={'DrivingSkill'}, X={'DrivQuality'}",0,0,500,500,0,1.0,145,355
+insurance.bif,27,0.015,0,5,"Y={'MakeModel'}, X={'ThisCarCost', 'Airbag', 'ILiCost'}; Y={'ThisCarDam'}, X={'ThisCarCost', 'Age'}",4,4,500,163,337,0.326,145,18
+insurance.bif,27,0.015,1,6,"Y={'DrivingSkill'}, X={'Antilock', 'DrivQuality'}; Y={'RiskAversion'}, X={'Age', 'CarValue', 'Accident'}",2,3,500,143,357,0.286,143,0
+insurance.bif,27,0.015,2,4,"Y={'Airbag'}, X={'Accident', 'VehicleYear'}; Y={'ILiCost'}, X={'Accident'}",1,1,500,152,348,0.304,148,4
+insurance.bif,27,0.015,3,11,"Y={'DrivQuality'}, X={'DrivingSkill', 'OtherCar'}; Y={'MakeModel'}, X={'Airbag', 'VehicleYear', 'OtherCarCost'}",2,2,500,123,377,0.246,113,10
+insurance.bif,27,0.015,4,3,"Y={'Airbag'}, X={'PropCost', 'MakeModel', 'OtherCar'}; Y={'Cushioning'}, X={'Airbag', 'Accident', 'OtherCarCost'}",0,0,500,500,0,1.0,134,366
+insurance.bif,27,0.015,5,6,"Y={'MedCost'}, X={'Cushioning', 'GoodStudent'}; Y={'RiskAversion'}, X={'DrivHist'}",4,4,500,130,370,0.26,130,0
+insurance.bif,27,0.015,6,3,"Y={'Age'}, X={'SocioEcon', 'ILiCost'}; Y={'OtherCar'}, X={'PropCost', 'SocioEcon'}",0,0,500,500,0,1.0,162,338
+insurance.bif,27,0.015,7,3,"Y={'CarValue'}, X={'Age', 'Airbag', 'VehicleYear'}; Y={'DrivingSkill'}, X={'Age', 'VehicleYear'}",2,2,500,166,334,0.332,141,25
+insurance.bif,27,0.015,8,6,"Y={'VehicleYear'}, X={'SocioEcon', 'CarValue', 'Accident'}; Y={'ThisCarCost'}, X={'PropCost', 'RuggedAuto'}",4,5,500,133,367,0.266,133,0
+insurance.bif,27,0.015,9,12,"Y={'Antilock'}, X={'ThisCarCost', 'MakeModel'}; Y={'Accident'}, X={'ThisCarDam', 'ILiCost'}",9,12,500,119,381,0.238,119,0
+insurance.bif,27,0.025,0,12,"Y={'Age'}, X={'SeniorTrain'}; Y={'Age'}, X={'SeniorTrain'}",0,0,500,500,0,1.0,119,381
+insurance.bif,27,0.025,1,6,"Y={'Age'}, X={'GoodStudent', 'MedCost'}; Y={'Accident'}, X={'OtherCarCost'}",4,4,500,137,363,0.274,136,1
+insurance.bif,27,0.025,2,4,"Y={'ThisCarCost'}, X={'CarValue', 'Accident'}; Y={'MakeModel'}, X={'CarValue'}",3,3,500,162,338,0.324,157,5
+insurance.bif,27,0.025,3,4,"Y={'Age'}, X={'RiskAversion'}; Y={'MakeModel'}, X={'SeniorTrain', 'CarValue'}",1,2,500,162,338,0.324,156,6
+insurance.bif,27,0.025,4,11,"Y={'MedCost'}, X={'CarValue', 'Cushioning', 'Airbag'}; Y={'DrivingSkill'}, X={'SeniorTrain'}",8,8,500,107,393,0.214,107,0
+insurance.bif,27,0.025,5,13,"Y={'Accident'}, X={'OtherCarCost'}; Y={'Theft'}, X={'CarValue'}",11,13,500,134,366,0.268,133,1
+insurance.bif,27,0.025,6,6,"Y={'RiskAversion'}, X={'HomeBase'}; Y={'SocioEcon'}, X={'RiskAversion', 'MakeModel'}",2,2,500,138,362,0.276,132,6
+insurance.bif,27,0.025,7,4,"Y={'SeniorTrain'}, X={'RiskAversion', 'Theft', 'MedCost'}; Y={'CarValue'}, X={'Mileage', 'Age', 'Theft'}",3,3,500,146,354,0.292,144,2
+insurance.bif,27,0.025,8,11,"Y={'Accident'}, X={'Airbag', 'ILiCost'}; Y={'RiskAversion'}, X={'SocioEcon'}",8,8,500,116,384,0.232,114,2
+insurance.bif,27,0.025,9,12,"Y={'RuggedAuto'}, X={'MakeModel', 'VehicleYear'}; Y={'Accident'}, X={'Mileage'}",9,12,500,124,376,0.248,122,2
+insurance.bif,27,0.035,0,15,"Y={'RiskAversion'}, X={'HomeBase'}; Y={'Antilock'}, X={'OtherCar', 'VehicleYear'}",6,8,500,149,351,0.298,149,0
+insurance.bif,27,0.035,1,14,"Y={'RuggedAuto'}, X={'DrivHist', 'ThisCarDam'}; Y={'VehicleYear'}, X={'RiskAversion', 'MakeModel'}",5,13,500,141,359,0.282,141,0
+insurance.bif,27,0.035,2,18,"Y={'SocioEcon'}, X={'SeniorTrain', 'DrivingSkill', 'MakeModel'}; Y={'DrivQuality'}, X={'Accident'}",10,13,500,112,388,0.224,112,0
+insurance.bif,27,0.035,3,5,"Y={'DrivQuality'}, X={'Accident', 'CarValue'}; Y={'ILiCost'}, X={'Accident'}",3,4,500,151,349,0.302,147,4
+insurance.bif,27,0.035,4,11,"Y={'ThisCarCost'}, X={'PropCost'}; Y={'SeniorTrain'}, X={'AntiTheft', 'RiskAversion'}",9,10,500,145,355,0.29,144,1
+insurance.bif,27,0.035,5,11,"Y={'MakeModel'}, X={'Antilock'}; Y={'RuggedAuto'}, X={'MakeModel'}",4,6,500,113,387,0.226,113,0
+insurance.bif,27,0.035,6,13,"Y={'VehicleYear'}, X={'RiskAversion'}; Y={'RiskAversion'}, X={'AntiTheft', 'HomeBase'}",4,7,500,140,360,0.28,140,0
+insurance.bif,27,0.035,7,10,"Y={'Accident'}, X={'Antilock'}; Y={'RuggedAuto'}, X={'Antilock', 'Cushioning'}",7,9,500,113,387,0.226,112,1
+insurance.bif,27,0.035,8,10,"Y={'ThisCarDam'}, X={'Accident', 'DrivQuality'}; Y={'Theft'}, X={'ThisCarDam', 'HomeBase', 'VehicleYear'}",4,7,500,137,363,0.274,135,2
+insurance.bif,27,0.035,9,10,"Y={'SocioEcon'}, X={'GoodStudent'}; Y={'SocioEcon'}, X={'HomeBase', 'DrivQuality'}",1,1,500,128,372,0.256,111,17
+mildew.bif,35,0.005,0,0,"Y={'meldug_2'}, X={'mikro_1', 'meldug_1'}; Y={'foto_4'}, X={'udbytte', 'temp_4'}",0,0,500,500,0,1.0,169,331
+mildew.bif,35,0.005,1,4,"Y={'meldug_3'}, X={'foto_3', 'meldug_4'}; Y={'mikro_3'}, X={'nedboer_3'}",3,3,500,166,334,0.332,151,15
+mildew.bif,35,0.005,2,3,"Y={'lai_2'}, X={'foto_2'}; Y={'straaling_2'}, X={'lai_0', 'foto_2'}",3,3,500,156,344,0.312,148,8
+mildew.bif,35,0.005,3,3,"Y={'foto_3'}, X={'nedboer_3', 'straaling_3', 'dm_2', 'lai_4'}; Y={'meldug_4'}, X={'lai_4'}",3,3,500,160,340,0.32,154,6
+mildew.bif,35,0.005,4,4,"Y={'meldug_3'}, X={'meldug_4'}; Y={'straaling_3'}, X={'foto_3'}",1,1,500,238,262,0.476,164,74
+mildew.bif,35,0.005,5,4,"Y={'meldug_4'}, X={'meldug_3', 'middel_2', 'dm_2', 'lai_3'}; Y={'meldug_3'}, X={'straaling_2', 'udbytte', 'meldug_4'}",4,4,500,146,354,0.292,141,5
+mildew.bif,35,0.005,6,4,"Y={'mikro_3'}, X={'lai_3', 'middel_2'}; Y={'mikro_1'}, X={'meldug_2', 'temp_1'}",2,3,500,174,326,0.348,162,12
+mildew.bif,35,0.005,7,2,"Y={'lai_2'}, X={'meldug_2', 'foto_2'}; Y={'foto_1'}, X={'meldug_4', 'temp_1'}",1,1,500,200,300,0.4,173,27
+mildew.bif,35,0.005,8,4,"Y={'meldug_4'}, X={'meldug_3', 'udbytte'}; Y={'lai_4'}, X={'foto_4'}",4,4,500,171,329,0.342,158,13
+mildew.bif,35,0.005,9,3,"Y={'mikro_3'}, X={'mikro_1', 'temp_3'}; Y={'meldug_4'}, X={'middel_2', 'middel_3'}",3,3,500,151,349,0.302,145,6
+mildew.bif,35,0.015,0,10,"Y={'meldug_4'}, X={'middel_3'}; Y={'lai_2'}, X={'straaling_2', 'foto_2', 'temp_1'}",9,9,500,149,351,0.298,149,0
+mildew.bif,35,0.015,1,7,"Y={'foto_4'}, X={'straaling_4', 'udbytte'}; Y={'dm_4'}, X={'udbytte'}",7,7,500,184,316,0.368,176,8
+mildew.bif,35,0.015,2,14,"Y={'meldug_2'}, X={'meldug_3'}; Y={'meldug_3'}, X={'mikro_2'}",8,10,500,151,349,0.302,148,3
+mildew.bif,35,0.015,3,7,"Y={'dm_3'}, X={'dm_2', 'lai_4'}; Y={'dm_3'}, X={'dm_2', 'foto_1'}",6,7,500,147,353,0.294,141,6
+mildew.bif,35,0.015,4,8,"Y={'mikro_2'}, X={'temp_2'}; Y={'foto_1'}, X={'straaling_2', 'foto_3', 'temp_1'}",4,6,500,157,343,0.314,150,7
+mildew.bif,35,0.015,5,9,"Y={'udbytte'}, X={'middel_2', 'dm_4'}; Y={'nedboer_2'}, X={'mikro_2'}",3,9,500,160,340,0.32,155,5
+mildew.bif,35,0.015,6,2,"Y={'straaling_4'}, X={'lai_1', 'foto_4'}; Y={'meldug_2'}, X={'mikro_1', 'middel_2', 'straaling_3'}",0,0,500,500,0,1.0,149,351
+mildew.bif,35,0.015,7,10,"Y={'foto_4'}, X={'dm_4'}; Y={'lai_1'}, X={'mikro_1', 'lai_0', 'temp_2'}",7,8,500,147,353,0.294,141,6
+mildew.bif,35,0.015,8,8,"Y={'foto_4'}, X={'lai_3', 'temp_4', 'middel_2'}; Y={'mikro_3'}, X={'middel_1', 'nedboer_3', 'temp_4'}",8,8,500,146,354,0.292,140,6
+mildew.bif,35,0.015,9,9,"Y={'nedboer_3'}, X={'lai_0', 'mikro_3', 'meldug_1'}; Y={'meldug_3'}, X={'meldug_2'}",2,2,500,148,352,0.296,123,25
+mildew.bif,35,0.025,0,18,"Y={'meldug_2'}, X={'middel_1', 'foto_4'}; Y={'temp_1'}, X={'mikro_1'}",11,15,500,116,384,0.232,115,1
+mildew.bif,35,0.025,1,23,"Y={'lai_3'}, X={'foto_3'}; Y={'dm_3'}, X={'middel_2', 'dm_2'}",20,22,500,120,380,0.24,120,0
+mildew.bif,35,0.025,2,12,"Y={'lai_2'}, X={'straaling_3', 'meldug_2'}; Y={'mikro_2'}, X={'nedboer_2', 'dm_1'}",5,11,500,174,326,0.348,170,4
+mildew.bif,35,0.025,3,14,"Y={'mikro_1'}, X={'meldug_2'}; Y={'lai_2'}, X={'lai_3', 'straaling_4', 'foto_2'}",2,2,500,164,336,0.328,150,14
+mildew.bif,35,0.025,4,19,"Y={'dm_3'}, X={'straaling_3', 'nedboer_3', 'foto_3', 'middel_2'}; Y={'temp_1'}, X={'straaling_2', 'straaling_1', 'meldug_1', 'foto_1'}",14,18,500,163,337,0.326,163,0
+mildew.bif,35,0.025,5,17,"Y={'foto_1'}, X={'lai_1'}; Y={'nedboer_2'}, X={'mikro_2', 'temp_3'}",3,12,500,151,349,0.302,145,6
+mildew.bif,35,0.025,6,15,"Y={'dm_1'}, X={'straaling_3', 'temp_3', 'foto_1', 'lai_3', 'meldug_4'}; Y={'mikro_3'}, X={'straaling_2', 'nedboer_3', 'straaling_3'}",12,14,500,150,350,0.3,147,3
+mildew.bif,35,0.025,7,15,"Y={'temp_3'}, X={'mikro_3'}; Y={'lai_3'}, X={'mikro_3', 'mikro_2'}",8,13,500,125,375,0.25,123,2
+mildew.bif,35,0.025,8,16,"Y={'lai_3'}, X={'foto_3', 'straaling_1'}; Y={'lai_1'}, X={'nedboer_3', 'dm_3', 'lai_4', 'foto_1'}",8,14,500,128,372,0.256,126,2
+mildew.bif,35,0.025,9,13,"Y={'mikro_2'}, X={'temp_2'}; Y={'lai_2'}, X={'mikro_3', 'foto_2'}",9,13,500,120,380,0.24,118,2
+mildew.bif,35,0.035,0,21,"Y={'lai_1'}, X={'mikro_1', 'foto_3', 'temp_2'}; Y={'foto_4'}, X={'straaling_4'}",19,21,500,130,370,0.26,130,0
+mildew.bif,35,0.035,1,21,"Y={'temp_1'}, X={'straaling_2', 'mikro_1'}; Y={'meldug_2'}, X={'meldug_3', 'temp_2'}",7,15,500,145,355,0.29,141,4
+mildew.bif,35,0.035,2,16,"Y={'lai_2'}, X={'mikro_2'}; Y={'dm_3'}, X={'dm_4'}",14,16,500,163,337,0.326,162,1
+mildew.bif,35,0.035,3,28,"Y={'temp_2'}, X={'temp_4', 'foto_2'}; Y={'mikro_3'}, X={'nedboer_3'}",21,28,500,123,377,0.246,123,0
+mildew.bif,35,0.035,4,21,"Y={'meldug_3'}, X={'mikro_2'}; Y={'dm_2'}, X={'dm_3'}",19,20,500,120,380,0.24,119,1
+mildew.bif,35,0.035,5,22,"Y={'mikro_3'}, X={'meldug_1', 'nedboer_2', 'temp_3'}; Y={'dm_1'}, X={'straaling_2', 'dm_2', 'straaling_1'}",16,21,500,98,402,0.196,98,0
+mildew.bif,35,0.035,6,23,"Y={'middel_1'}, X={'middel_3', 'meldug_2'}; Y={'udbytte'}, X={'dm_4'}",1,16,500,110,390,0.22,109,1
+mildew.bif,35,0.035,7,18,"Y={'foto_4'}, X={'dm_4', 'mikro_3', 'foto_2', 'temp_1'}; Y={'foto_3'}, X={'lai_3', 'mikro_2'}",15,17,500,166,334,0.332,165,1
+mildew.bif,35,0.035,8,19,"Y={'lai_2'}, X={'lai_1', 'mikro_3', 'foto_3', 'straaling_1'}; Y={'lai_2'}, X={'foto_2'}",10,15,500,122,378,0.244,119,3
+mildew.bif,35,0.035,9,23,"Y={'mikro_3'}, X={'lai_3'}; Y={'dm_4'}, X={'nedboer_2', 'foto_4'}",20,20,500,120,380,0.24,118,2
+water.bif,32,0.005,0,0,"Y={'CKNI_12_15'}, X={'CKNI_12_30'}; Y={'CKND_12_15'}, X={'C_NI_12_45', 'CKND_12_45', 'CKND_12_30', 'CKNI_12_45', 'CNON_12_15'}",0,0,500,500,0,1.0,172,328
+water.bif,32,0.005,1,1,"Y={'CNOD_12_15'}, X={'CNOD_12_30'}; Y={'CNOD_12_45'}, X={'CBODD_12_30'}",1,1,500,187,313,0.374,152,35
+water.bif,32,0.005,2,4,"Y={'CBODN_12_45'}, X={'CKNN_12_00', 'CNON_12_30', 'CKNI_12_45'}; Y={'CBODD_12_15'}, X={'CKNN_12_45', 'C_NI_12_30', 'C_NI_12_00'}",3,3,500,171,329,0.342,160,11
+water.bif,32,0.005,3,2,"Y={'CKNI_12_30'}, X={'CBODN_12_00', 'CKNN_12_00', 'CBODD_12_45'}; Y={'CKNI_12_00'}, X={'CKND_12_15', 'CNOD_12_15'}",0,0,500,500,0,1.0,155,345
+water.bif,32,0.005,4,3,"Y={'CBODD_12_45'}, X={'CNOD_12_30', 'C_NI_12_30', 'CKND_12_45', 'CBODN_12_45'}; Y={'CNOD_12_15'}, X={'CKNI_12_45', 'C_NI_12_15', 'CNOD_12_00'}",3,3,500,183,317,0.366,156,27
+water.bif,32,0.005,5,1,"Y={'CKNN_12_30'}, X={'CKNN_12_15', 'CKNN_12_45'}; Y={'CBODD_12_00'}, X={'CBODD_12_15'}",0,0,500,500,0,1.0,149,351
+water.bif,32,0.005,6,4,"Y={'CNON_12_45'}, X={'CBODN_12_30', 'CNON_12_15', 'CKND_12_15', 'CBODN_12_15'}; Y={'CBODD_12_30'}, X={'CBODN_12_15'}",3,3,500,164,336,0.328,161,3
+water.bif,32,0.005,7,3,"Y={'CKNN_12_15'}, X={'CKND_12_00', 'C_NI_12_15'}; Y={'CBODN_12_45'}, X={'CNON_12_45', 'CBODD_12_30'}",1,1,500,181,319,0.362,148,33
+water.bif,32,0.005,8,2,"Y={'CBODN_12_15'}, X={'CBODD_12_30', 'CKND_12_00'}; Y={'CKND_12_15'}, X={'CKND_12_00', 'CKNN_12_45'}",1,1,500,182,318,0.364,146,36
+water.bif,32,0.005,9,1,"Y={'CKNN_12_45'}, X={'C_NI_12_45', 'CNON_12_30', 'CKND_12_30'}; Y={'CBODN_12_30'}, X={'CBODD_12_15'}",1,1,500,196,304,0.392,136,60
+water.bif,32,0.015,0,9,"Y={'C_NI_12_45'}, X={'CKNN_12_45', 'C_NI_12_30'}; Y={'CBODD_12_30'}, X={'CKNN_12_45', 'C_NI_12_15'}",7,8,500,150,350,0.3,145,5
+water.bif,32,0.015,1,8,"Y={'CNOD_12_00'}, X={'CNOD_12_15'}; Y={'CKNI_12_45'}, X={'CKNI_12_30'}",1,3,500,191,309,0.382,178,13
+water.bif,32,0.015,2,13,"Y={'CKND_12_15'}, X={'CKNI_12_00'}; Y={'CNOD_12_15'}, X={'CNON_12_30'}",8,13,500,142,358,0.284,142,0
+water.bif,32,0.015,3,4,"Y={'CNOD_12_15'}, X={'CNON_12_30'}; Y={'CNOD_12_00'}, X={'CNON_12_15'}",1,1,500,204,296,0.408,154,50
+water.bif,32,0.015,4,10,"Y={'CKND_12_30'}, X={'CKNN_12_15', 'CNOD_12_45', 'CNOD_12_00'}; Y={'C_NI_12_30'}, X={'C_NI_12_15'}",5,8,500,136,364,0.272,134,2
+water.bif,32,0.015,5,3,"Y={'CNON_12_30'}, X={'CNON_12_15'}; Y={'CNON_12_45'}, X={'C_NI_12_15', 'CKNN_12_30', 'CNOD_12_00'}",3,3,500,162,338,0.324,157,5
+water.bif,32,0.015,6,9,"Y={'C_NI_12_30'}, X={'CNON_12_00', 'C_NI_12_15'}; Y={'CNON_12_30'}, X={'CNOD_12_15'}",4,8,500,151,349,0.302,147,4
+water.bif,32,0.015,7,6,"Y={'CBODN_12_45'}, X={'CBODN_12_30'}; Y={'CNOD_12_00'}, X={'CBODD_12_15'}",5,6,500,141,359,0.282,133,8
+water.bif,32,0.015,8,8,"Y={'CBODN_12_15'}, X={'CBODD_12_15', 'CBODN_12_00'}; Y={'CBODD_12_15'}, X={'CBODN_12_00'}",4,7,500,167,333,0.334,167,0
+water.bif,32,0.015,9,9,"Y={'CBODD_12_00'}, X={'CNOD_12_15'}; Y={'CNON_12_45'}, X={'CNON_12_30'}",8,9,500,115,385,0.23,115,0
+water.bif,32,0.025,0,8,"Y={'CKNI_12_30'}, X={'CKND_12_45'}; Y={'CNON_12_15'}, X={'CNON_12_30'}",1,4,500,161,339,0.322,147,14
+water.bif,32,0.025,1,21,"Y={'CKNN_12_00'}, X={'CNON_12_15'}; Y={'CBODN_12_15'}, X={'CNON_12_30'}",7,17,500,133,367,0.266,133,0
+water.bif,32,0.025,2,17,"Y={'CNON_12_15'}, X={'CNON_12_00', 'CNOD_12_45'}; Y={'CBODD_12_00'}, X={'CKNN_12_45', 'CBODN_12_15'}",6,16,500,152,348,0.304,152,0
+water.bif,32,0.025,3,11,"Y={'CKNN_12_30'}, X={'CNON_12_45'}; Y={'CNOD_12_30'}, X={'CBODD_12_15', 'C_NI_12_30'}",6,7,500,145,355,0.29,144,1
+water.bif,32,0.025,4,11,"Y={'CKNI_12_00'}, X={'CBODD_12_45', 'CBODD_12_30', 'CKNI_12_15', 'CBODN_12_15'}; Y={'CKNN_12_15'}, X={'CBODN_12_30', 'CKNN_12_30'}",1,4,500,160,340,0.32,150,10
+water.bif,32,0.025,5,17,"Y={'CKNI_12_00'}, X={'CNON_12_15', 'CKND_12_15', 'CKNI_12_45'}; Y={'CBODD_12_15'}, X={'CBODD_12_00'}",1,2,500,152,348,0.304,138,14
+water.bif,32,0.025,6,11,"Y={'CBODD_12_30'}, X={'CBODN_12_45', 'CNOD_12_15'}; Y={'CKNI_12_00'}, X={'CKND_12_15', 'CNOD_12_15'}",7,10,500,144,356,0.288,143,1
+water.bif,32,0.025,7,12,"Y={'CBODN_12_15'}, X={'CNON_12_00'}; Y={'CNOD_12_45'}, X={'CNOD_12_30', 'C_NI_12_30'}",11,11,500,132,368,0.264,132,0
+water.bif,32,0.025,8,9,"Y={'CNOD_12_15'}, X={'CKNI_12_30', 'CNON_12_00', 'CNON_12_15'}; Y={'CKNN_12_15'}, X={'CKND_12_30', 'CKND_12_00'}",1,5,500,172,328,0.344,144,28
+water.bif,32,0.025,9,13,"Y={'CKND_12_45'}, X={'CKNI_12_30', 'CKNI_12_15', 'CBODN_12_45'}; Y={'CKNN_12_30'}, X={'CKND_12_15', 'C_NI_12_30'}",6,11,500,143,357,0.286,142,1
+water.bif,32,0.035,0,23,"Y={'CBODN_12_00'}, X={'CNON_12_15'}; Y={'CNOD_12_30'}, X={'CBODD_12_15', 'C_NI_12_45', 'CKNI_12_30', 'CBODN_12_30'}",10,21,500,109,391,0.218,108,1
+water.bif,32,0.035,1,18,"Y={'CBODN_12_15'}, X={'CNON_12_30', 'CNOD_12_00'}; Y={'CNOD_12_30'}, X={'C_NI_12_15', 'CNOD_12_15'}",10,16,500,116,384,0.232,116,0
+water.bif,32,0.035,2,19,"Y={'CNON_12_30'}, X={'CKNN_12_30', 'CNON_12_15', 'CNOD_12_15'}; Y={'CNOD_12_30'}, X={'CKND_12_15', 'CNOD_12_15'}",17,19,500,108,392,0.216,108,0
+water.bif,32,0.035,3,19,"Y={'CBODD_12_30'}, X={'CBODN_12_00', 'CNON_12_45', 'CNOD_12_45'}; Y={'C_NI_12_30'}, X={'CBODD_12_45'}",12,14,500,116,384,0.232,114,2
+water.bif,32,0.035,4,15,"Y={'CNON_12_30'}, X={'CNOD_12_15'}; Y={'CKND_12_30'}, X={'CBODN_12_00', 'CNON_12_00', 'CKNN_12_45'}",12,15,500,134,366,0.268,134,0
+water.bif,32,0.035,5,23,"Y={'CKNN_12_30'}, X={'CKNN_12_45', 'CKNI_12_45'}; Y={'CKND_12_45'}, X={'CBODN_12_00', 'CKNN_12_30'}",12,22,500,106,394,0.212,106,0
+water.bif,32,0.035,6,21,"Y={'CBODD_12_15'}, X={'CNOD_12_30', 'CKNN_12_00', 'CKNI_12_15'}; Y={'CBODD_12_00'}, X={'C_NI_12_00', 'C_NI_12_30', 'CNOD_12_15'}",9,18,500,96,404,0.192,95,1
+water.bif,32,0.035,7,16,"Y={'CKNN_12_15'}, X={'CKND_12_00', 'CNOD_12_45'}; Y={'CBODN_12_30'}, X={'CBODD_12_15'}",9,16,500,129,371,0.258,129,0
+water.bif,32,0.035,8,25,"Y={'CNOD_12_30'}, X={'CNON_12_15', 'CKNN_12_30'}; Y={'CNON_12_15'}, X={'CKND_12_45', 'CNON_12_00', 'CBODN_12_15'}",12,23,500,129,371,0.258,129,0
+water.bif,32,0.035,9,20,"Y={'CNON_12_30'}, X={'C_NI_12_15', 'CBODN_12_45'}; Y={'CKNN_12_30'}, X={'CKNN_12_15', 'CKND_12_15'}",12,20,500,121,379,0.242,120,1

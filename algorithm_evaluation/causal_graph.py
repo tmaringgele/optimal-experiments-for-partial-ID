@@ -84,40 +84,33 @@ class CausalGraph:
             districts.append(frozenset(district))
         return districts
 
-    def get_R_theta(self, query_y, query_x):
-        """Get R_theta: response-type variables relevant for query P(y|do(x)).
+    def get_R_theta(self, query_worlds):
+        """Get R_theta: response-type variables relevant for query theta.
 
-        R_theta = {R in hidden : exists directed path R -> Y not passing through X}
+        R_theta = {R in hidden : exists world c, exists directed path
+                   R -> Y^(c) not passing through X^(c)}
 
         Args:
-            query_y: set (or str) of outcome variable(s)
-            query_x: set (or str) of intervention variable(s)
+            query_worlds: list of (Y_set, X_set) tuples, one per
+                          counterfactual world
 
         Returns:
             set of hidden variable names
         """
-        if isinstance(query_y, str):
-            query_y = {query_y}
-        if isinstance(query_x, str):
-            query_x = {query_x}
-        query_y = set(query_y)
-        query_x = set(query_x)
-
-        # Remove intervention nodes X from the graph
-        reduced = self.graph.copy()
-        reduced.remove_nodes_from(query_x)
-
         R_theta = set()
-        for r in self.hidden:
-            if r not in reduced:
-                continue
-            for y in query_y:
-                if y in reduced and nx.has_path(reduced, r, y):
-                    R_theta.add(r)
-                    break
+        for Y_set, X_set in query_worlds:
+            reduced = self.graph.copy()
+            reduced.remove_nodes_from(X_set)
+            for r in self.hidden:
+                if r in R_theta or r not in reduced:
+                    continue
+                for y in Y_set:
+                    if y in reduced and nx.has_path(reduced, r, y):
+                        R_theta.add(r)
+                        break
         return R_theta
 
-    def get_R_theta_star(self, query_y, query_x):
+    def get_R_theta_star(self, query_worlds):
         """Get R*_theta: response-types in the district hull of R_theta.
 
         1. Compute R_theta (query-relevant response-types)
@@ -125,13 +118,12 @@ class CausalGraph:
         3. R*_theta = all hidden vars in those districts
 
         Args:
-            query_y: set of outcome variable(s)
-            query_x: set of intervention variable(s)
+            query_worlds: list of (Y_set, X_set) tuples
 
         Returns:
             set of hidden variable names
         """
-        R_theta = self.get_R_theta(query_y, query_x)
+        R_theta = self.get_R_theta(query_worlds)
         if not R_theta:
             return set()
 
@@ -140,7 +132,7 @@ class CausalGraph:
 
         R_theta_star = set()
         for d in districts:
-            if d & R_theta:  # district contains at least one R in R_theta
+            if d & R_theta:
                 for var in d:
                     if var in hidden_set:
                         R_theta_star.add(var)

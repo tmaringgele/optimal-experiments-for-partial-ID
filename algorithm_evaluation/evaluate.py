@@ -9,34 +9,28 @@ import pandas as pd
 
 from .bif_parser import parse_bif
 from .causal_graph import CausalGraph
-from .get_useless import generate_experiments, get_useless_experiments
+from .get_useless import sample_query, sample_experiments, get_useless_experiments
 
 
-def choose_random_query(causal_graph, rng):
-    """Choose a random query P(y|do(x)) by picking Y, then a parent of Y as X.
+DEFAULT_THETA_CONFIG = {
+    'CF_worlds_mean': 1,
+    'CF_worlds_sd': 0,
+    'W_size_mean': 1,
+    'W_size_sd': 0,
+    'Z_size_mean': 1,
+    'Z_size_sd': 0,
+    'intervention_outcome_distance_mean': 1,
+    'intervention_outcome_distance_sd': 0,
+}
 
-    Args:
-        causal_graph: CausalGraph object
-        rng: numpy random generator
-
-    Returns:
-        (y_var, x_var) or None if no valid query exists
-    """
-    variables = causal_graph.observed
-    # Find variables that have at least one observed parent
-    candidates = []
-    for v in variables:
-        parents = causal_graph.observed_parents(v)
-        if parents:
-            candidates.append((v, parents))
-
-    if not candidates:
-        return None
-
-    idx = rng.integers(len(candidates))
-    y_var, parents = candidates[idx]
-    x_var = parents[rng.integers(len(parents))]
-    return y_var, x_var
+DEFAULT_EXPERIMENT_CONFIG = {
+    'CF_worlds_mean': 1,
+    'CF_worlds_sd': 0,
+    'W_size_mean': 1,
+    'W_size_sd': 1,
+    'Z_size_mean': 1,
+    'Z_size_sd': 1,
+}
 
 
 def evaluate(
@@ -44,7 +38,9 @@ def evaluate(
     confounding_probs=(0.05, 0.15, 0.25, 0.35),
     n_simulations=100,
     seed=42,
-    max_experiment_size=None,
+    experiment_set_size=200,
+    theta_config=None,
+    experiment_config=None,
     verbose=False,
 ):
     """Evaluate GetUselessExperiments on a BIF graph.
@@ -52,8 +48,8 @@ def evaluate(
     For each confounding probability and simulation:
     1. Parse the BIF file to get the DAG structure
     2. Add random latent confounders with the given probability
-    3. Choose a random query P(y|do(x))
-    4. Enumerate candidate experiments
+    3. Sample a query theta according to theta_config
+    4. Sample candidate experiments according to experiment_config
     5. Run GetUselessExperiments to identify useless ones
     6. Record statistics
 
@@ -62,23 +58,26 @@ def evaluate(
         confounding_probs: list of probabilities for adding confounders
         n_simulations: number of random simulations per probability
         seed: random seed for reproducibility
-        max_experiment_size: max |W|+|Z| for experiments (None = no limit)
+        experiment_set_size: number of candidate experiments |A| to sample
+        theta_config: dict controlling query sampling (see experiment_setup.md)
+        experiment_config: dict controlling experiment sampling
         verbose: if True, print progress
 
     Returns:
         pd.DataFrame with one row per simulation
     """
+    if theta_config is None:
+        theta_config = DEFAULT_THETA_CONFIG
+    if experiment_config is None:
+        experiment_config = DEFAULT_EXPERIMENT_CONFIG
+
     variables, edges = parse_bif(bif_path)
     graph_name = os.path.basename(bif_path)
     rng = np.random.default_rng(seed)
 
-    # Pre-generate experiments (same variable set for all simulations)
-    experiments = generate_experiments(variables, max_experiment_size)
-    n_experiments = len(experiments)
-
     if verbose:
         print(f"Graph: {graph_name}, |V|={len(variables)}, "
-              f"|experiments|={n_experiments}")
+              f"|A|={experiment_set_size}")
 
     results = []
 
@@ -93,19 +92,28 @@ def evaluate(
 
             cg = CausalGraph(variables, edges, confounders)
 
-            # Choose random query P(y|do(x))
-            query = choose_random_query(cg, rng)
-            if query is None:
+            # Sample query theta
+            query_worlds = sample_query(cg, theta_config, rng)
+            if query_worlds is None:
                 continue
-            y_var, x_var = query
 
-            # Compute R*_theta for this query
-            R_theta = cg.get_R_theta({y_var}, {x_var})
-            R_theta_star = cg.get_R_theta_star({y_var}, {x_var})
+            # Sample candidate experiments
+            experiments = sample_experiments(
+                variables, experiment_config, experiment_set_size, rng
+            )
+
+            # Compute R_theta and R*_theta for reporting
+            R_theta = cg.get_R_theta(query_worlds)
+            R_theta_star = cg.get_R_theta_star(query_worlds)
 
             # Run GetUselessExperiments
             useless, stats = get_useless_experiments(
-                cg, {y_var}, {x_var}, experiments
+                cg, query_worlds, experiments
+            )
+
+            n_experiments = len(experiments)
+            query_str = "; ".join(
+                f"Y={set(Y)}, X={set(X)}" for Y, X in query_worlds
             )
 
             result = {
@@ -114,8 +122,7 @@ def evaluate(
                 'p_conf': p_conf,
                 'sim': sim,
                 'n_confounders': len(confounders),
-                'query_y': y_var,
-                'query_x': x_var,
+                'query': query_str,
                 'n_R_theta': len(R_theta),
                 'n_R_theta_star': len(R_theta_star),
                 'n_experiments': n_experiments,

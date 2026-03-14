@@ -1,0 +1,34 @@
+small_networks= ['asia', 'sachs'] #path: small-networks/
+medium_networks = ['alarm', 'barley', 'child', 'insurance', 'mildew', 'water'] # path: medium-networks/
+
+all_graphs_paths = [f'small-networks/{graph}.bif' for graph in small_networks] + \
+                   [f'medium-networks/{graph}.bif' for graph in medium_networks]
+df = pd.DataFrame()
+for graph_path in all_graphs_paths:
+    print(f"Evaluating graph: {graph_path}")
+    df = pd.concat([df, evaluate(
+        'algorithm_evaluation/example-graphs/bnlearn/'+graph_path,
+        confounding_probs=[0.05, 0.15, 0.25, 0.35], # Akbari: [0.05, 0.15, 0.25, 0.35]
+        n_simulations=50,
+        seed=42,
+        verbose=True,
+        experiment_set_size=100,
+        theta_config=  {
+            'CF_worlds_mean': 2, #should be configured s.t. theta is not ID.
+            'CF_worlds_sd': 1,
+            'W_size_mean': 1,
+            'W_size_sd': 0,
+            'Z_size_mean': 2,
+            'Z_size_sd': 1,
+            'intervention_outcome_distance_mean': 2,
+            'intervention_outcome_distance_sd': 0
+        },
+        experiment_config={
+            'CF_worlds_mean': 1, # needs a little more care. If two CF worlds intervene on different vars, |C|=1.
+            'CF_worlds_sd': 1,
+            'W_size_mean': 3,
+            'W_size_sd': 2,
+            'Z_size_mean': 3,
+            'Z_size_sd': 2,
+        }
+    )], ignore_index=True)
