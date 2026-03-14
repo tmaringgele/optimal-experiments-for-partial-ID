@@ -31,13 +31,15 @@ def sample_query(causal_graph, theta_config, rng):
     """Sample a query theta according to theta_config.
 
     Returns a list of (Y_set, X_set) tuples representing counterfactual
-    worlds.  For each world a seed pair (x, y) is chosen at the target
-    shortest-path distance; then both sets are expanded to the desired sizes.
+    worlds.  When intervention_outcome_distance_mean/sd are provided, a
+    seed pair (x, y) is chosen at the target distance.  Otherwise, Y is
+    picked uniformly at random and X is sampled from ancestors(Y).
 
     Args:
         causal_graph: CausalGraph object
         theta_config: dict with keys CF_worlds_mean/sd, W_size_mean/sd,
-                      Z_size_mean/sd, intervention_outcome_distance_mean/sd
+                      Z_size_mean/sd, and optionally
+                      intervention_outcome_distance_mean/sd
         rng: numpy random Generator
 
     Returns:
@@ -47,39 +49,35 @@ def sample_query(causal_graph, theta_config, rng):
     variables = causal_graph.observed
     n = len(variables)
 
-    # Build undirected observed graph for distance computation
-    obs_undirected = nx.Graph()
-    obs_undirected.add_nodes_from(variables)
-    obs_undirected.add_edges_from(causal_graph.directed_edges)
+    use_distance = (
+        theta_config.get('intervention_outcome_distance_mean') is not None
+    )
 
-    # All-pairs shortest paths (only among observed variables)
-    path_lengths = dict(nx.all_pairs_shortest_path_length(obs_undirected))
+    if use_distance:
+        obs_undirected = nx.Graph()
+        obs_undirected.add_nodes_from(variables)
+        obs_undirected.add_edges_from(causal_graph.directed_edges)
+        path_lengths = dict(nx.all_pairs_shortest_path_length(obs_undirected))
 
-    # Group variable pairs by distance
-    pairs_by_dist = defaultdict(list)
-    for x in variables:
-        for y in variables:
-            if x != y:
-                d = path_lengths.get(x, {}).get(y, None)
-                if d is not None:
-                    pairs_by_dist[d].append((x, y))
+        pairs_by_dist = defaultdict(list)
+        for x in variables:
+            for y in variables:
+                if x != y:
+                    d = path_lengths.get(x, {}).get(y, None)
+                    if d is not None:
+                        pairs_by_dist[d].append((x, y))
 
-    if not pairs_by_dist:
-        return None  # disconnected graph with no reachable pairs
-
-    available_dists = sorted(pairs_by_dist.keys())
+        if not pairs_by_dist:
+            return None
+        available_dists = sorted(pairs_by_dist.keys())
 
     n_worlds = _sample_size(
         theta_config['CF_worlds_mean'], theta_config['CF_worlds_sd'], rng
     )
 
+    max_retries = 50
     worlds = []
     for _ in range(n_worlds):
-        target_dist = _sample_size(
-            theta_config['intervention_outcome_distance_mean'],
-            theta_config['intervention_outcome_distance_sd'],
-            rng, min_val=1,
-        )
         w_size = _sample_size(
             theta_config['W_size_mean'], theta_config['W_size_sd'], rng
         )
@@ -87,47 +85,103 @@ def sample_query(causal_graph, theta_config, rng):
             theta_config['Z_size_mean'], theta_config['Z_size_sd'], rng
         )
 
-        # Find closest achievable distance
-        closest_dist = min(available_dists, key=lambda d: abs(d - target_dist))
-        candidates = pairs_by_dist[closest_dist]
+        if use_distance:
+            target_dist = _sample_size(
+                theta_config['intervention_outcome_distance_mean'],
+                theta_config['intervention_outcome_distance_sd'],
+                rng, min_val=1,
+            )
+            closest_dist = min(available_dists,
+                               key=lambda d: abs(d - target_dist))
+            candidates = pairs_by_dist[closest_dist]
+            idx = rng.integers(len(candidates))
+            x_seed, y_seed = candidates[idx]
 
-        # Pick a seed pair
-        idx = rng.integers(len(candidates))
-        x_seed, y_seed = candidates[idx]
+            # Build Y_set around y_seed
+            Y_set = {y_seed}
+            pool = [v for v in variables if v != x_seed and v != y_seed]
+            if len(pool) > 0 and w_size > 1:
+                extra = min(w_size - 1, len(pool))
+                chosen = rng.choice(len(pool), size=extra, replace=False)
+                for i in chosen:
+                    Y_set.add(pool[i])
 
-        # Build Y_set around y_seed
-        Y_set = {y_seed}
-        pool = [v for v in variables if v != x_seed and v != y_seed]
-        if len(pool) > 0 and w_size > 1:
-            extra = min(w_size - 1, len(pool))
-            chosen = rng.choice(len(pool), size=extra, replace=False)
-            for i in chosen:
-                Y_set.add(pool[i])
+            # Build X_set around x_seed, restricted to ancestors(Y)
+            anc_Y = causal_graph.observed_ancestors(Y_set)
+            X_set = set()
+            if x_seed in anc_Y:
+                X_set.add(x_seed)
+            anc_pool = list(anc_Y - X_set)
+            needed = z_size - len(X_set)
+            if needed > 0 and len(anc_pool) > 0:
+                extra = min(needed, len(anc_pool))
+                chosen = rng.choice(len(anc_pool), size=extra, replace=False)
+                for i in chosen:
+                    X_set.add(anc_pool[i])
 
-        # Build X_set around x_seed (disjoint from Y_set)
-        X_set = {x_seed}
-        pool = [v for v in variables if v not in Y_set and v != x_seed]
-        if len(pool) > 0 and z_size > 1:
-            extra = min(z_size - 1, len(pool))
-            chosen = rng.choice(len(pool), size=extra, replace=False)
-            for i in chosen:
-                X_set.add(pool[i])
+            if not X_set:
+                # seed pair didn't work; fall through to ancestor-based
+                anc_Y = causal_graph.observed_ancestors(Y_set)
+                if anc_Y:
+                    anc_list = list(anc_Y)
+                    z_actual = min(z_size, len(anc_list))
+                    idx = rng.choice(len(anc_list), size=z_actual, replace=False)
+                    X_set = {anc_list[i] for i in idx}
 
-        worlds.append((frozenset(Y_set), frozenset(X_set)))
+            if X_set:
+                worlds.append((frozenset(Y_set), frozenset(X_set)))
+        else:
+            # No distance control: pick Y randomly, X from ancestors(Y)
+            valid = False
+            for _retry in range(max_retries):
+                w_actual = min(w_size, n)
+                w_indices = rng.choice(n, size=w_actual, replace=False)
+                Y_set = {variables[i] for i in w_indices}
 
-    return worlds
+                anc_Y = causal_graph.observed_ancestors(Y_set)
+                if not anc_Y:
+                    continue
+
+                anc_list = list(anc_Y)
+                z_actual = min(z_size, len(anc_list))
+                z_indices = rng.choice(len(anc_list), size=z_actual,
+                                       replace=False)
+                X_set = {anc_list[i] for i in z_indices}
+                valid = True
+                break
+
+            if not valid:
+                # Fallback: find any variable with ancestors
+                for v in variables:
+                    anc = causal_graph.observed_ancestors({v})
+                    if anc:
+                        Y_set = {v}
+                        X_set = {rng.choice(list(anc))}
+                        valid = True
+                        break
+
+            if valid:
+                worlds.append((frozenset(Y_set), frozenset(X_set)))
+
+    return worlds if worlds else None
 
 
-def sample_experiments(variables, experiment_config, n_experiments, rng):
+def sample_experiments(causal_graph, experiment_config, n_experiments, rng):
     """Sample candidate experiments according to experiment_config.
 
     Each experiment is a tuple of (W, Z) frozenset pairs, one per
-    counterfactual world.
+    counterfactual world.  Z is always constrained to be a subset of
+    the observed ancestors of W in the DAG.
+
+    When intervention_outcome_distance_mean/sd are provided, a seed pair
+    (z, w) is chosen at the target shortest-path distance and the sets
+    are expanded around it.
 
     Args:
-        variables: list of observed variable names
+        causal_graph: CausalGraph object
         experiment_config: dict with keys CF_worlds_mean/sd,
-                           W_size_mean/sd, Z_size_mean/sd
+                           W_size_mean/sd, Z_size_mean/sd, and optionally
+                           intervention_outcome_distance_mean/sd
         n_experiments: number of experiments to sample
         rng: numpy random Generator
 
@@ -135,8 +189,32 @@ def sample_experiments(variables, experiment_config, n_experiments, rng):
         list of experiment tuples; each experiment is a tuple of
         (frozenset(W), frozenset(Z)) pairs
     """
+    variables = causal_graph.observed
     n = len(variables)
+
+    use_distance = 'intervention_outcome_distance_mean' in experiment_config
+
+    if use_distance:
+        obs_undirected = nx.Graph()
+        obs_undirected.add_nodes_from(variables)
+        obs_undirected.add_edges_from(causal_graph.directed_edges)
+        path_lengths = dict(nx.all_pairs_shortest_path_length(obs_undirected))
+
+        pairs_by_dist = defaultdict(list)
+        for x in variables:
+            for y in variables:
+                if x != y:
+                    d = path_lengths.get(x, {}).get(y, None)
+                    if d is not None:
+                        pairs_by_dist[d].append((x, y))
+
+        if not pairs_by_dist:
+            use_distance = False
+        else:
+            available_dists = sorted(pairs_by_dist.keys())
+
     experiments = []
+    max_retries = 50
 
     for _ in range(n_experiments):
         n_worlds = _sample_size(
@@ -156,18 +234,82 @@ def sample_experiments(variables, experiment_config, n_experiments, rng):
                 experiment_config['Z_size_sd'],
                 rng,
             )
-            total = min(w_size + z_size, n)
-            w_size = min(w_size, total)
-            z_size = max(1, min(z_size, total - w_size))
-            w_size = max(1, total - z_size)
 
-            indices = rng.choice(n, size=total, replace=False)
-            selected = [variables[i] for i in indices]
-            W = frozenset(selected[:w_size])
-            Z = frozenset(selected[w_size:])
-            worlds.append((W, Z))
+            valid = False
+            for _retry in range(max_retries):
+                if use_distance:
+                    target_dist = _sample_size(
+                        experiment_config['intervention_outcome_distance_mean'],
+                        experiment_config['intervention_outcome_distance_sd'],
+                        rng, min_val=1,
+                    )
+                    closest_dist = min(available_dists,
+                                       key=lambda d: abs(d - target_dist))
+                    candidates = pairs_by_dist[closest_dist]
+                    idx = rng.integers(len(candidates))
+                    z_seed, w_seed = candidates[idx]
 
-        experiments.append(tuple(worlds))
+                    # Build W around w_seed
+                    W_set = {w_seed}
+                    pool = [v for v in variables if v != z_seed and v != w_seed]
+                    if len(pool) > 0 and w_size > 1:
+                        extra = min(w_size - 1, len(pool))
+                        chosen = rng.choice(len(pool), size=extra, replace=False)
+                        for i in chosen:
+                            W_set.add(pool[i])
+
+                    # Z must be subset of ancestors(W)
+                    anc_W = causal_graph.observed_ancestors(W_set)
+                    if not anc_W:
+                        continue  # retry: W has no observed ancestors
+
+                    Z_set = set()
+                    if z_seed in anc_W:
+                        Z_set.add(z_seed)
+                    anc_pool = list(anc_W - Z_set)
+                    needed = z_size - len(Z_set)
+                    if needed > 0 and len(anc_pool) > 0:
+                        extra = min(needed, len(anc_pool))
+                        chosen = rng.choice(len(anc_pool), size=extra, replace=False)
+                        for i in chosen:
+                            Z_set.add(anc_pool[i])
+
+                    if not Z_set:
+                        continue  # retry: couldn't form a valid Z
+                else:
+                    # Pick W first
+                    w_actual = min(w_size, n)
+                    w_indices = rng.choice(n, size=w_actual, replace=False)
+                    W_set = {variables[i] for i in w_indices}
+
+                    # Z from ancestors(W)
+                    anc_W = causal_graph.observed_ancestors(W_set)
+                    if not anc_W:
+                        continue  # retry
+
+                    anc_list = list(anc_W)
+                    z_actual = min(z_size, len(anc_list))
+                    z_indices = rng.choice(len(anc_list), size=z_actual, replace=False)
+                    Z_set = {anc_list[i] for i in z_indices}
+
+                valid = True
+                break
+
+            if not valid:
+                # Fallback: pick a single root->leaf pair
+                for v in variables:
+                    anc = causal_graph.observed_ancestors({v})
+                    if anc:
+                        W_set = {v}
+                        Z_set = {rng.choice(list(anc))}
+                        valid = True
+                        break
+
+            if valid:
+                worlds.append((frozenset(W_set), frozenset(Z_set)))
+
+        if worlds:
+            experiments.append(tuple(worlds))
 
     return experiments
 

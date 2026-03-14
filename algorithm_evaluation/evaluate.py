@@ -19,8 +19,6 @@ DEFAULT_THETA_CONFIG = {
     'W_size_sd': 0,
     'Z_size_mean': 1,
     'Z_size_sd': 0,
-    'intervention_outcome_distance_mean': 1,
-    'intervention_outcome_distance_sd': 0,
 }
 
 DEFAULT_EXPERIMENT_CONFIG = {
@@ -99,7 +97,7 @@ def evaluate(
 
             # Sample candidate experiments
             experiments = sample_experiments(
-                variables, experiment_config, experiment_set_size, rng
+                cg, experiment_config, experiment_set_size, rng
             )
 
             # Compute R_theta and R*_theta for reporting

@@ -57,6 +57,23 @@ class CausalGraph:
         """Get observed parents of a variable (excluding hidden confounders)."""
         return [p for p in self.graph.predecessors(var) if p in self.observed_set]
 
+    def observed_ancestors(self, variables):
+        """Get all observed ancestors of a set of variables (excluding the variables themselves).
+
+        Uses the directed graph to find all nodes with a directed path to any
+        variable in the set, restricted to observed variables.
+
+        Args:
+            variables: iterable of variable names
+
+        Returns:
+            set of observed variable names that are ancestors
+        """
+        ancestors = set()
+        for v in variables:
+            ancestors |= nx.ancestors(self.graph, v)
+        return (ancestors & self.observed_set) - set(variables)
+
     def get_districts(self):
         """Compute districts (c-components).
 

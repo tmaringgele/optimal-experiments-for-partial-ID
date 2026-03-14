@@ -59,10 +59,12 @@ Sizes are sampled from a normal distribution, rounded to the nearest integer, an
 | `W_size_sd` | float | Standard deviation for `|Y^(c)|` |
 | `Z_size_mean` | float | Mean number of intervention variables `|X^(c)|` per world |
 | `Z_size_sd` | float | Standard deviation for `|X^(c)|` |
-| `intervention_outcome_distance_mean` | float | Mean shortest-path distance between `X^(c)` and `Y^(c)` (in the undirected observed graph). Sampled per world. |
-| `intervention_outcome_distance_sd` | float | Standard deviation for the intervention–outcome distance |
+| `intervention_outcome_distance_mean` | float or None | *(optional)* Mean shortest-path distance between `X^(c)` and `Y^(c)` (in the undirected observed graph). If `None` or omitted, interventions are sampled uniformly from ancestors of `Y`. |
+| `intervention_outcome_distance_sd` | float or None | *(optional)* Standard deviation for the intervention–outcome distance |
 
-**Distance semantics:** For each counterfactual world, a target distance `d` is sampled from `N(mean, sd)`. A seed pair `(x, y)` is chosen uniformly at random from all pairs whose shortest-path distance in the undirected observed graph equals `d` (or the closest available distance if `d` is not achievable). The sets `X^(c)` and `Y^(c)` are then built around this seed pair.
+**Distance semantics:** When the distance keys are provided (not `None`), a target distance `d` is sampled from `N(mean, sd)`. A seed pair `(x, y)` is chosen uniformly at random from all pairs whose shortest-path distance in the undirected observed graph equals `d` (or the closest available distance). The sets `X^(c)` and `Y^(c)` are then built around this seed pair, with `X` restricted to ancestors of `Y`.
+
+**Without distance control (default):** `Y` is picked uniformly at random, and `X` is sampled from the observed ancestors of `Y` in the DAG.
 
 **Default:**
 ```python
@@ -73,11 +75,9 @@ theta_config = {
     'W_size_sd': 0,
     'Z_size_mean': 1,
     'Z_size_sd': 0,
-    'intervention_outcome_distance_mean': 1,
-    'intervention_outcome_distance_sd': 0,
 }
 ```
-This samples `P(y | do(x))` where `x` is an immediate neighbor of `y`.
+This samples `P(y | do(x))` where `x` is a random ancestor of `y`.
 
 ---
 
