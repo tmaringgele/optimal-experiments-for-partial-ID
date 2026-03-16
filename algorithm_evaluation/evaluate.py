@@ -13,8 +13,7 @@ from .get_useless import sample_query, sample_experiments, get_useless_experimen
 
 
 DEFAULT_THETA_CONFIG = {
-    'CF_worlds_mean': 1,
-    'CF_worlds_sd': 0,
+    'CF_fraction': 0.0,
     'W_size_mean': 1,
     'W_size_sd': 0,
     'Z_size_mean': 1,
@@ -22,8 +21,7 @@ DEFAULT_THETA_CONFIG = {
 }
 
 DEFAULT_EXPERIMENT_CONFIG = {
-    'CF_worlds_mean': 1,
-    'CF_worlds_sd': 0,
+    'CF_fraction': 0.0,
     'W_size_mean': 1,
     'W_size_sd': 1,
     'Z_size_mean': 1,
@@ -110,6 +108,7 @@ def evaluate(
             )
 
             n_experiments = len(experiments)
+            n_cf = sum(1 for e in experiments if len(e) == 2)
             query_str = "; ".join(
                 f"Y={set(Y)}, X={set(X)}" for Y, X in query_worlds
             )
@@ -121,9 +120,12 @@ def evaluate(
                 'sim': sim,
                 'n_confounders': len(confounders),
                 'query': query_str,
+                'query_is_cf': len(query_worlds) == 2,
                 'n_R_theta': len(R_theta),
                 'n_R_theta_star': len(R_theta_star),
                 'n_experiments': n_experiments,
+                'n_cf_experiments': n_cf,
+                'fraction_cf': n_cf / n_experiments if n_experiments else 0,
                 'n_useless': len(useless),
                 'n_useful': n_experiments - len(useless),
                 'fraction_pruned': len(useless) / n_experiments if n_experiments else 0,

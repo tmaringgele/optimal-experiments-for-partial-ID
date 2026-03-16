@@ -1,6 +1,7 @@
 """ID algorithm for causal effect identifiability.
 
 Adapted from Matteo Zoro's implementation of the ID/IDC algorithms.
+(https://github.com/mattez90/IDC-algorithm)
 Original paper: Shpitser & Pearl (2006), "Identification of Joint
 Interventional Distributions in Recursive Semi-Markovian Causal Models"
 https://www.aaai.org/Papers/AAAI/2006/AAAI06-191.pdf
