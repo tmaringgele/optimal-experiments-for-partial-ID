@@ -58,14 +58,16 @@ Set sizes are drawn uniformly at random from the provided lists. Interventions `
 | `Z_sizes` | list of int | Allowed intervention set sizes `|X^(c)|`; one is picked uniformly at random per world |
 | `intervention_outcome_distances` | list of int or None | *(optional)* Allowed distances between the seed intervention and outcome (undirected shortest path). One is picked uniformly at random per world. If `None` or omitted, interventions are sampled uniformly from `anc(Y) \ Y`. |
 
-**Counterfactual queries:** When a query has 2 worlds, the second world is guaranteed to share at least one intervention variable with the first (the shared variable is picked at random from `X^(1) ∩ ancestors(Y^(2))`). This ensures meaningful counterfactual contrasts (e.g. PNS-style queries).
+**Counterfactual queries:** When a query has 2 worlds, the second world is guaranteed to share at least one intervention variable with the first (the shared variable is picked at random from `X^(1) ∩ ancestors(Y^(2))`). This ensures meaningful counterfactual contrasts (e.g. PNS-style queries). When distance control is enabled, both worlds use it: in the second world, the seed intervention `z₂` is picked from `Z₁ ∩ anc(W₂)` preferring the target distance (same closest-available-distance fallback as world 1).
 
-**Distance semantics:** When `intervention_outcome_distances` is provided:
+**Distance semantics:** When `intervention_outcome_distances` is provided, both worlds use the following procedure for the seed intervention:
 1. `Y` is picked uniformly at random from `V`
 2. `anc(Y) \ Y` is computed and each ancestor's undirected shortest-path distance to `Y` is measured
 3. A target distance `d` is picked uniformly from `intervention_outcome_distances`
 4. The first intervention `x` is picked uniformly from ancestors at distance `d`. If no ancestor exists at exactly `d`, the ancestor group with the closest available distance is used instead
 5. Remaining interventions are filled from `anc(Y) \ Y`
+
+For the second world of a counterfactual query, the same distance-controlled selection applies to the seed intervention, but restricted to `Z₁ ∩ anc(W₂)` (to guarantee shared intervention variables).
 
 **Without distance control (default):** `Y` is picked uniformly at random, and `X` is sampled uniformly from `anc(Y) \ Y`.
 
@@ -95,7 +97,7 @@ Controls how each candidate experiment in `A` is sampled. Each experiment has 1 
 **Counterfactual sampling (2-world experiments):** The second world is seeded from the first:
 1. Pick the first outcome `w₂` uniformly from `W₁` (shared outcome)
 2. Expand `W₂` to the target size with additional variables from `V`
-3. Pick the first intervention `z₂` uniformly from `Z₁ ∩ (anc(W₂) \ W₂)` (shared intervention)
+3. Pick the first intervention `z₂` from `Z₁ ∩ (anc(W₂) \ W₂)` (shared intervention). When distance control is enabled, `z₂` is picked preferring the target distance (same semantics as world 1); otherwise picked uniformly.
 4. Expand `Z₂` to the target size with additional variables from `anc(W₂) \ W₂`
 
 This guarantees `W₁ ∩ W₂ ≠ ∅` and `Z₁ ∩ Z₂ ≠ ∅`, mirroring how real counterfactual experiments contrast outcomes under shared but differing interventions.

@@ -165,7 +165,7 @@ def sample_query(causal_graph, theta_config, rng):
         # Second world: seed W₂ from W₁, seed Z₂ from Z₁
         W1, X1 = world1
         world2 = _sample_cf_world(causal_graph, variables, w_sizes, z_sizes,
-                                  W1, X1, rng)
+                                  W1, X1, rng, **dist_kwargs)
         if world2 is not None:
             worlds.append(world2)
 
@@ -173,13 +173,16 @@ def sample_query(causal_graph, theta_config, rng):
 
 
 def _sample_cf_world(causal_graph, variables, w_sizes, z_sizes,
-                     W_prev, Z_prev, rng):
+                     W_prev, Z_prev, rng,
+                     use_distance=False, obs_undirected=None,
+                     distances=None, **_kwargs):
     """Sample world 2 for a counterfactual experiment.
 
     Seeds W₂ from W₁ and Z₂ from Z₁ to guarantee shared variables:
       1. Pick first w₂ uniformly from W₁
       2. Expand W₂ with additional variables from V (like world 1)
-      3. Pick first z₂ from Z₁ ∩ (anc(W₂) \\ W₂)
+      3. Pick first z₂ from Z₁ ∩ (anc(W₂) \\ W₂), using distance control
+         if enabled (preferring the target distance)
       4. Expand Z₂ with additional variables from anc(W₂) \\ W₂
     """
     max_retries = 50
@@ -211,7 +214,33 @@ def _sample_cf_world(causal_graph, variables, w_sizes, z_sizes,
         if not shared_candidates:
             continue
 
-        z_seed = shared_candidates[rng.integers(len(shared_candidates))]
+        if use_distance:
+            target_dist = distances[rng.integers(len(distances))]
+
+            # Compute min undirected distance from each candidate to any w ∈ W₂
+            cand_by_dist = defaultdict(list)
+            for z in shared_candidates:
+                min_d = min(
+                    (nx.shortest_path_length(obs_undirected, z, w)
+                     for w in W_set
+                     if obs_undirected.has_node(z) and obs_undirected.has_node(w)
+                     and nx.has_path(obs_undirected, z, w)),
+                    default=None,
+                )
+                if min_d is not None:
+                    cand_by_dist[min_d].append(z)
+
+            if cand_by_dist:
+                available = sorted(cand_by_dist.keys())
+                best_dist = min(available,
+                                key=lambda d: abs(d - target_dist))
+                candidates = cand_by_dist[best_dist]
+                z_seed = candidates[rng.integers(len(candidates))]
+            else:
+                z_seed = shared_candidates[rng.integers(len(shared_candidates))]
+        else:
+            z_seed = shared_candidates[rng.integers(len(shared_candidates))]
+
         Z_set = {z_seed}
 
         # Expand Z₂ with additional ancestors of W₂
@@ -281,7 +310,8 @@ def sample_experiments(causal_graph, experiment_config, n_experiments, rng):
         if n_worlds == 2:
             W1, Z1 = world1
             world2 = _sample_cf_world(causal_graph, variables, w_sizes,
-                                      z_sizes, W1, Z1, rng)
+                                      z_sizes, W1, Z1, rng,
+                                      **dist_kwargs)
             if world2 is not None:
                 worlds.append(world2)
 
