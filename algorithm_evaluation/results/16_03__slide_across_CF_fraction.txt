@@ -1,0 +1,34 @@
+
+small_networks= ['asia', 'sachs'] #path: small-networks/
+medium_networks = ['alarm', 'barley', 'child', 'insurance', 'mildew', 'water'] # path: medium-networks/
+
+all_graphs_paths = [f'small-networks/{graph}.bif' for graph in small_networks] + \
+                   [f'medium-networks/{graph}.bif' for graph in medium_networks]
+df = pd.DataFrame()
+
+path_prefix= 'algorithm_evaluation/example-graphs/bnlearn/'
+
+CF_fractions = [0, 0.25, 0.5, 0.75, 1]
+for CF_fraction in CF_fractions:
+    print(f"Evaluating CF_fraction: {CF_fraction}")
+    for graph_path in all_graphs_paths:
+        print(f"Evaluating graph: {graph_path}")
+        df = pd.concat([df, evaluate(
+            path_prefix + graph_path,
+            confounding_probs=[0.005, 0.015, 0.025, 0.035], # Akbari: [0.05, 0.15, 0.25, 0.35]
+            n_simulations=10,
+            seed=42,
+            verbose=True,
+            experiment_set_size=50,
+            theta_config=  {
+                'CF_fraction': 1,
+                'W_sizes': [1, 2, 3, 4, 5],
+                'Z_sizes': [1, 2, 3, 4, 5],
+                'intervention_outcome_distances': [1,2,3,4,5],
+            },
+            experiment_config={
+                'CF_fraction': CF_fraction,
+                'W_sizes': [1, 2, 3, 4, 5],
+                'Z_sizes': [1, 2, 3, 4, 5],
+            }
+        )], ignore_index=True)

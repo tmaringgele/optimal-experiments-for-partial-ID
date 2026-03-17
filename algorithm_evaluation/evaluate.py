@@ -4,6 +4,7 @@ Evaluates how many experiments can be pruned on BIF-derived causal DAGs
 with randomly added latent confounders.
 """
 import os
+import networkx as nx
 import numpy as np
 import pandas as pd
 
@@ -14,18 +15,14 @@ from .get_useless import sample_query, sample_experiments, get_useless_experimen
 
 DEFAULT_THETA_CONFIG = {
     'CF_fraction': 0.0,
-    'W_size_mean': 1,
-    'W_size_sd': 0,
-    'Z_size_mean': 1,
-    'Z_size_sd': 0,
+    'W_sizes': [1],
+    'Z_sizes': [1],
 }
 
 DEFAULT_EXPERIMENT_CONFIG = {
     'CF_fraction': 0.0,
-    'W_size_mean': 1,
-    'W_size_sd': 1,
-    'Z_size_mean': 1,
-    'Z_size_sd': 1,
+    'W_sizes': [1, 2, 3],
+    'Z_sizes': [1, 2, 3],
 }
 
 
@@ -113,6 +110,20 @@ def evaluate(
                 f"Y={set(Y)}, X={set(X)}" for Y, X in query_worlds
             )
 
+            # Min intervention-outcome distance (undirected shortest path)
+            obs_undirected = nx.Graph()
+            obs_undirected.add_nodes_from(variables)
+            obs_undirected.add_edges_from(edges)
+            min_xy_dist = float('inf')
+            for Y, X in query_worlds:
+                for x in X:
+                    for y in Y:
+                        if nx.has_path(obs_undirected, x, y):
+                            d = nx.shortest_path_length(obs_undirected, x, y)
+                            min_xy_dist = min(min_xy_dist, d)
+            if min_xy_dist == float('inf'):
+                min_xy_dist = None
+
             result = {
                 'graph': graph_name,
                 'n_vars': len(variables),
@@ -121,6 +132,7 @@ def evaluate(
                 'n_confounders': len(confounders),
                 'query': query_str,
                 'query_is_cf': len(query_worlds) == 2,
+                'min_intervention_outcome_dist': min_xy_dist,
                 'n_R_theta': len(R_theta),
                 'n_R_theta_star': len(R_theta_star),
                 'n_experiments': n_experiments,
