@@ -74,21 +74,34 @@ def evaluate(
 
     results = []
 
+    # Build a bare graph (no confounders) for query sampling
+    bare_cg = CausalGraph(variables, edges, [])
+
     for p_conf in confounding_probs:
         for sim in range(n_simulations):
-            # Add random confounders for every pair of variables
-            confounders = []
-            for i, v1 in enumerate(variables):
-                for v2 in variables[i + 1:]:
-                    if rng.random() < p_conf:
-                        confounders.append((v1, v2))
-
-            cg = CausalGraph(variables, edges, confounders)
-
-            # Sample query theta
-            query_worlds = sample_query(cg, theta_config, rng)
+            # Sample query theta on the bare graph (before adding confounders)
+            query_worlds = sample_query(bare_cg, theta_config, rng)
             if query_worlds is None:
                 continue
+
+            # Guarantee a confounder between X and Y of the first world
+            Y1, X1 = query_worlds[0]
+            forced_confounder = (
+                sorted(X1)[0],
+                sorted(Y1)[0],
+            )
+
+            # Add random confounders for every pair of variables
+            confounders = [forced_confounder]
+            for i, v1 in enumerate(variables):
+                for v2 in variables[i + 1:]:
+                    pair = (v1, v2)
+                    if pair == forced_confounder or pair == (forced_confounder[1], forced_confounder[0]):
+                        continue  # already added
+                    if rng.random() < p_conf:
+                        confounders.append(pair)
+
+            cg = CausalGraph(variables, edges, confounders)
 
             # Sample candidate experiments
             experiments = sample_experiments(

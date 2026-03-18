@@ -5,11 +5,14 @@
 The `evaluate()` function runs `GetUselessExperiments` on a BIF-derived causal DAG with randomly added latent confounders. For each simulation it:
 
 1. Parses the BIF file to extract the observed DAG
-2. Adds latent confounders between each pair of observed variables with probability `p_conf`
-3. Samples a query `theta` according to `theta_config`
-4. Samples a set of candidate experiments according to `experiment_config` and `experiment_set_size`
-5. Runs `GetUselessExperiments` to identify useless experiments
-6. Records pruning statistics
+2. Samples a query `theta` on the bare DAG (no confounders yet) according to `theta_config`
+3. Adds a **guaranteed confounder** between an intervention and an outcome of the first query world (`X^(1)` ↔ `Y^(1)`)
+4. Adds additional latent confounders between each remaining pair of observed variables with probability `p_conf`
+5. Samples a set of candidate experiments according to `experiment_config` and `experiment_set_size`
+6. Runs `GetUselessExperiments` to identify useless experiments
+7. Records pruning statistics
+
+**Why query before confounders?** The query is sampled on the bare DAG so that its structure is independent of the confounder placement. A confounder between `X` and `Y` is then hardcoded to ensure the query is non-trivially confounded — without this, many simulations would produce queries that are already identifiable, reducing the evaluation's informativeness.
 
 ---
 
