@@ -137,6 +137,7 @@ experiment_config = {
 | `u_v_ratio` | Achieved `|U|/|V|` ratio (actual number of confounders divided by `|V|`) |
 | `sim` | Simulation index |
 | `n_confounders` | Number of latent confounders added |
+| `n_districts` | Number of districts (maximal bidirected-connected components) in the graph |
 | `query` | String representation of the sampled query `theta` |
 | `query_is_cf` | Whether the query is a 2-world counterfactual |
 | `n_R_theta` | `|R_theta|` — query-relevant response types |

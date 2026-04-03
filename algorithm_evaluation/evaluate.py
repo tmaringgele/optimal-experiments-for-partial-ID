@@ -155,6 +155,7 @@ def evaluate(
             'u_v_ratio': len(confounders) / len(variables),
             'sim': sim,
             'n_confounders': len(confounders),
+            'n_districts': len(cg.get_districts()),
             'query': query_str,
             'query_is_cf': len(query_worlds) == 2,
             'min_intervention_outcome_dist': min_xy_dist,
