@@ -6,7 +6,7 @@ The `evaluate()` function runs `GetUselessExperiments` on a BIF-derived causal D
 
 1. Parses the BIF file to extract the observed DAG
 2. Samples a query `theta` on the bare DAG (no confounders yet) according to `theta_config`
-3. Adds a **guaranteed confounder** between an intervention and an outcome of the first query world (`X^(1)` ↔ `Y^(1)`)
+3. Adds a **guaranteed confounder** for every node in `X^(1)`: each `x ∈ X^(1)` is connected to a randomly chosen `y ∈ Y^(1)` via a latent confounder
 4. Adds additional latent confounders between each remaining pair of observed variables with probability `p_conf`
 5. Samples a set of candidate experiments according to `experiment_config` and `experiment_set_size`
 6. Runs `GetUselessExperiments` to identify useless experiments
@@ -22,7 +22,9 @@ The `evaluate()` function runs `GetUselessExperiments` on a BIF-derived causal D
 Path to a `.bif` file. Only the graph structure (variable names and edges) is used; probability tables are ignored.
 
 ### `confounder_ratio_range` (tuple of float)
-An interval `[a, b]` controlling the density of latent confounders. For each simulation, a target ratio `r = |U|/|V|` is drawn uniformly from `[a, b]`, and `max(1, round(r * |V|))` confounders are added between randomly chosen pairs of observed variables (in addition to the guaranteed confounder). Use `(a, a)` to fix the ratio exactly.
+An interval `[a, b]` controlling the density of latent confounders. For each simulation, a target ratio `r = |U|/|V|` is drawn uniformly from `[a, b]`, and exactly `floor(r * |V|)` confounders are added in total. Use `(a, a)` to fix the ratio exactly.
+
+The actual lower bound for `r` is clamped to `len(forced_confounders) / |V|` so the target is always achievable. On very small graphs where the forced confounders alone exceed `b` (e.g. `|Y^(1)|=5` on an 8-node graph gives `5/8=0.625`), the ratio will be floored at the forced-confounder minimum — this is unavoidable and does not occur on graphs with `|V| >= 9` when `W_sizes` are bounded by 5 and `b >= 0.6`.
 
 Default: `(0.1, 0.5)`
 
@@ -45,6 +47,34 @@ Default: `200`
 Print progress updates.
 
 Default: `False`
+
+### `save_graphs` (str or None)
+If set to a file path, saves the full reconstruction data for every simulation
+to a JSON file. Each entry is keyed by `sim_id = "<graph_name>__sim<N>"`, which
+matches the `graph` and `sim` columns in the returned DataFrame and can be used
+to look up the exact graph/query/experiment set for any row of interest.
+
+The JSON structure per entry is:
+```json
+{
+  "sim_id": "asia.bif__sim3",
+  "graph": "asia.bif",
+  "sim": 3,
+  "variables": ["asia", "tub", ...],
+  "edges": [["asia", "tub"], ...],
+  "confounders": [["tub", "dysp"], ...],
+  "query_worlds": [{"Y": ["dysp"], "X": ["tub"]}, ...],
+  "experiments": [
+    [{"W": ["lung"], "Z": ["asia"]}],
+    ...
+  ]
+}
+```
+
+If the file already exists, new entries are merged into it (existing keys are
+overwritten). Defaults to `None` (nothing is saved).
+
+Default: `None`
 
 ---
 
@@ -113,6 +143,35 @@ experiment_config = {
     'Z_sizes': [1, 2, 3],
 }
 ```
+
+---
+
+---
+
+## Visualization
+
+Two functions are available in `algorithm_evaluation.visualize` (also exported from the package root) for inspecting saved simulations:
+
+### `plot_simulation(json_path, graph_name, sim, figsize, seed)`
+
+Draws the causal graph for the given simulation:
+- **Directed edges**: arrows between observed variables
+- **Confounders**: curved dashed orange edges between the two variables they connect
+- **Query Y nodes**: red
+- **Query X nodes**: blue
+- **Y ∩ X nodes**: purple
+- **Other nodes**: grey
+
+### `print_experiments(json_path, graph_name, sim)`
+
+Prints the experiment set partitioned into three groups:
+1. **Useful** — not pruned by either criterion
+2. **Pruned by ID check** — single-world, identifiable from P(V)
+3. **Pruned by AllPathsBlocked** — all paths from R\*\_theta blocked
+
+Both functions accept the JSON file produced by `evaluate(..., save_graphs=...)`.
+The `sim_id` key in the JSON (`"<graph_name>__sim<N>"`) links each record to
+the corresponding row in the DataFrame via `(graph, sim)`.
 
 ---
 

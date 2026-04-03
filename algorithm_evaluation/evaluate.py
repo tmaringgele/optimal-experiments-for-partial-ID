@@ -3,6 +3,7 @@
 Evaluates how many experiments can be pruned on BIF-derived causal DAGs
 with randomly added latent confounders.
 """
+import json
 import os
 import networkx as nx
 import numpy as np
@@ -35,6 +36,7 @@ def evaluate(
     theta_config=None,
     experiment_config=None,
     verbose=False,
+    save_graphs=None,
 ):
     """Evaluate GetUselessExperiments on a BIF graph.
 
@@ -58,6 +60,11 @@ def evaluate(
         theta_config: dict controlling query sampling (see experiment_setup.md)
         experiment_config: dict controlling experiment sampling
         verbose: if True, print progress
+        save_graphs: if set to a file path, saves the full graph/query/experiment
+            data for every simulation to a JSON file. Each entry is keyed by
+            sim_id = "<graph_name>__sim<sim>", which matches the (graph, sim)
+            columns in the returned DataFrame. If the file already exists, new
+            entries are merged into it.
 
     Returns:
         pd.DataFrame with one row per simulation
@@ -76,6 +83,7 @@ def evaluate(
               f"|A|={experiment_set_size}, ratio_range={confounder_ratio_range}")
 
     results = []
+    graph_records = {}  # sim_id -> reconstruction dict, populated if save_graphs is set
 
     # Build a bare graph (no confounders) for query sampling
     bare_cg = CausalGraph(variables, edges, [])
@@ -86,32 +94,41 @@ def evaluate(
         if query_worlds is None:
             continue
 
-        # Guarantee a confounder between X and Y of the first world
+        # Guarantee that every node in X^(1) has a confounder with at least one Y^(1)
         Y1, X1 = query_worlds[0]
-        forced_confounder = (
-            sorted(X1)[0],
-            sorted(Y1)[0],
-        )
+        y1_list = sorted(Y1)
+        forced_confounders = {
+            (x, rng.choice(y1_list))
+            for x in X1
+        }
 
-        # Sample target |U|/|V| ratio uniformly from the range
-        r = rng.uniform(confounder_ratio_range[0], confounder_ratio_range[1])
-        target_u = max(1, round(r * len(variables)))
+        # Sample target |U|/|V| ratio uniformly from the range.
+        # Clamp lower bound to the forced-confounder floor so r is always
+        # achievable. Use int() (floor) instead of round() to guarantee
+        # target_u / |V| never exceeds r.
+        # Edge case: if forced confounders alone push the floor above the upper
+        # bound (only possible on very small graphs), we accept the minimum
+        # forced ratio and skip the random sample entirely.
+        r_lo = max(confounder_ratio_range[0],
+                   len(forced_confounders) / len(variables))
+        r_hi = confounder_ratio_range[1]
+        r = rng.uniform(r_lo, r_hi) if r_lo <= r_hi else r_lo
+        target_u = max(len(forced_confounders), int(r * len(variables)))
 
-        # All candidate pairs excluding the forced confounder
+        # All candidate pairs excluding the forced confounders
         candidate_pairs = [
             (v1, v2)
             for i, v1 in enumerate(variables)
             for v2 in variables[i + 1:]
-            if (v1, v2) != forced_confounder and (v2, v1) != forced_confounder
+            if (v1, v2) not in forced_confounders and (v2, v1) not in forced_confounders
         ]
 
-        # Sample target_u - 1 additional confounders (without replacement)
-        n_additional = min(target_u - 1, len(candidate_pairs))
+        n_additional = min(target_u - len(forced_confounders), len(candidate_pairs))
         if n_additional > 0:
             indices = rng.choice(len(candidate_pairs), size=n_additional, replace=False)
-            confounders = [forced_confounder] + [candidate_pairs[i] for i in indices]
+            confounders = list(forced_confounders) + [candidate_pairs[i] for i in indices]
         else:
-            confounders = [forced_confounder]
+            confounders = list(forced_confounders)
 
         cg = CausalGraph(variables, edges, confounders)
 
@@ -119,6 +136,25 @@ def evaluate(
         experiments = sample_experiments(
             cg, experiment_config, experiment_set_size, rng
         )
+
+        if save_graphs is not None:
+            sim_id = f"{graph_name}__sim{sim}"
+            graph_records[sim_id] = {
+                "sim_id": sim_id,
+                "graph": graph_name,
+                "sim": sim,
+                "variables": list(variables),
+                "edges": [list(e) for e in edges],
+                "confounders": [list(c) for c in confounders],
+                "query_worlds": [
+                    {"Y": sorted(Y), "X": sorted(X)}
+                    for Y, X in query_worlds
+                ],
+                "experiments": [
+                    [{"W": sorted(W), "Z": sorted(Z)} for W, Z in experiment]
+                    for experiment in experiments
+                ],
+            }
 
         # Compute R_theta and R*_theta for reporting
         R_theta = cg.get_R_theta(query_worlds)
@@ -175,5 +211,14 @@ def evaluate(
         if verbose and (sim + 1) % 10 == 0:
             print(f"  u/v={result['u_v_ratio']:.2f}, sim {sim+1}/{n_simulations}: "
                   f"pruned {result['fraction_pruned']:.1%}")
+
+    if save_graphs is not None and graph_records:
+        existing = {}
+        if os.path.exists(save_graphs):
+            with open(save_graphs, "r") as f:
+                existing = json.load(f)
+        existing.update(graph_records)
+        with open(save_graphs, "w") as f:
+            json.dump(existing, f, indent=2)
 
     return pd.DataFrame(results)
