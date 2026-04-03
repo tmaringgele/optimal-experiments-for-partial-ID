@@ -21,13 +21,13 @@ The `evaluate()` function runs `GetUselessExperiments` on a BIF-derived causal D
 ### `bif_path` (str)
 Path to a `.bif` file. Only the graph structure (variable names and edges) is used; probability tables are ignored.
 
-### `confounding_probs` (list of float)
-Probabilities for adding a latent confounder between each pair of observed variables. For each `p` in this list, `n_simulations` simulations are run. Each pair `(V_i, V_j)` independently receives a confounder with probability `p`.
+### `confounder_ratio_range` (tuple of float)
+An interval `[a, b]` controlling the density of latent confounders. For each simulation, a target ratio `r = |U|/|V|` is drawn uniformly from `[a, b]`, and `max(1, round(r * |V|))` confounders are added between randomly chosen pairs of observed variables (in addition to the guaranteed confounder). Use `(a, a)` to fix the ratio exactly.
 
-Default: `[0.05, 0.15, 0.25, 0.35]`
+Default: `(0.1, 0.5)`
 
 ### `n_simulations` (int)
-Number of random simulations per confounding probability.
+Number of random simulations.
 
 Default: `100`
 
@@ -134,7 +134,7 @@ experiment_config = {
 |--------|-------------|
 | `graph` | BIF file name |
 | `n_vars` | Number of observed variables |
-| `p_conf` | Confounding probability used |
+| `u_v_ratio` | Achieved `|U|/|V|` ratio (actual number of confounders divided by `|V|`) |
 | `sim` | Simulation index |
 | `n_confounders` | Number of latent confounders added |
 | `query` | String representation of the sampled query `theta` |
